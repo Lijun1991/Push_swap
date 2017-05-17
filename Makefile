@@ -10,9 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = push_swap
+NAME = push_swap 
 
-SRC = main.c 
+SRC = main.c parse_arg.c handle_lst.c handle_data.c helper.c 
 
 OBJ = $(SRC:.c=.o)
 

@@ -12,112 +12,6 @@
 
 #include "pushswap.h"
 
-t_plst	*new_lst(char *s)
-{
-	t_plst *new;
-
-	new = malloc(sizeof(t_plst));
-	new->data = ft_atoi(s);
-	new->next = NULL;
-	return (new);
-}
-
-t_plst	*new_lst_nbr(int data)
-{
-	t_plst *new;
-
-	new = malloc(sizeof(t_plst));
-	new->data = data;
-	new->next = NULL;
-	return (new);
-}
-
-void	intert_lst_front(t_plst **lst, t_plst *new)
-{
-	new->next = *lst;
-	*lst = new;
-}
-
-void	print_lst(t_plst *lst)
-{
-	t_plst *cur;
-
-	cur = lst;
-	while (cur)
-	{
-		ft_printf("%d\n", cur->data);
-		cur = cur->next;
-	}
-}
-
-void	swap_lst_data(t_plst *lst)
-{
-	int tmp;
-
-	tmp = 0;
-	ft_printf("check swap[]");
-	if (lst->next && lst->data > lst->next->data)
-	{
-		tmp = lst->data;
-		lst->data = lst->next->data;
-		lst->next->data = tmp;
-		ft_printf("swap top two : \n");
-		print_lst(lst);
-	}
-	return ;
-}
-
-int		get_last_data(t_plst *lst)
-{
-	t_plst *cur;
-
-	cur = lst;
-	while (cur->next)
-		cur = cur->next;
-	return (cur->data);
-}
-
-void	rotate_lst_data(t_plst *lst)
-{
-	int tmp;
-	int last_data;
-	t_plst *cur;
-
-	last_data = get_last_data(lst);
-	// ft_printf("last data %d\n", last_data);
-
-	ft_printf("check rotate[]");
-	if (lst->next && lst->data > last_data)
-	{
-		tmp = lst->data;
-		lst->data = last_data;
-		cur = lst;
-		while (cur->next)
-			cur = cur->next;
-		cur->data = tmp;
-		ft_printf("rotate first to last : \n");
-		print_lst(lst);
-	}
-	return ; 
-}
-
-int		parse_arg(char **argv, t_plst **lst)
-{
-	int len;
-	int total;
-
-	len = 0;
-	while (argv[len])
-		len++;
-	total = len;
-	while (len - 1)
-	{
-		intert_lst_front(lst, new_lst(argv[len - 1]));
-		len--;
-	}
-	return (total);
-}
-
 void	push_b(t_plst **lst, t_plst **lstb)
 {
 	int tmp;
@@ -135,18 +29,61 @@ void	push_b(t_plst **lst, t_plst **lstb)
 	print_lst(*lstb);
 }
 
-void	do_sort(t_plst *lst, t_plst *lstb, int total)
+void	set_info(t_plst *lst, t_plst *lstb, t_pinfo *info)
 {
-	int steps;
+	info->counta = count_nbr(lst);
+	info->countb = count_nbr(lstb);
+	info->lasta = get_last_data(lst);
+	info->lastb = get_last_data(lstb);
+}
 
-	steps = 0;
+// void	three_bothsides(t_plst *lst, t_plst *lstb, t_pinfo *info);
+
+void	three_one_side(t_plst *lst, int last_data)
+{
+	if (lst->data > lst->next->data > last_data)
+		rotate_data(lst, last_data);
+	if (lst->data > last_data > lst->next->data)
+		rotate_n_swap(lst, last_data);
+	if (lst->next->data > lst->data > last_data)
+		swap_n_rotate(lst, last_data);
+	if (lst->next->data > last_data > lst->data)
+		swap_rotate_swap(lst, last_data);
+	if (last_data > lst->data > lst->next->data)
+		swap_data(lst);
+}
+
+void	do_sort(t_plst *lst, t_plst *lstb, t_pinfo *info)
+{
+	int total;
+
+	total = count_nbr(lst);
+
 	ft_printf("original :\n");
 	print_lst(lst);
 
-	while (total - 1)
+	while (total - 3)
 	{
-		rotate_lst_data(lst);
-		swap_lst_data(lst);
+		set_info(lst, lstb, info);
+		ft_printf("count a is %d, count b is %d\n", info->counta, info->countb);
+		ft_printf("last a is %d, last b is %d\n", last_data, info->lastb);
+		if (counta >=3 && countb >= 3)
+			three_bothsides(lst, lstb, info);
+		else if (counta >=3 && countb < 3)
+			three_one_side(lst, info->lasta);
+		else if (counta < 3 && countb >= 3)
+			three_one_side(lstb, info->latab);
+		else if (counta < 3 && countb < 3)
+			two_both_sides(lst, lstb, info);
+
+		// if ((lst->next && lst->data > lst->next->data) && (lstb->next && lstb->data > lstb->next->data))
+		// {
+		// 	printf("SS, swap a and b/n");
+		// 	swap_lst_data(lst);
+		// 	swap_lst_data(lstb);
+		// }
+		// if (lst->next && lst->data > last_data)
+		// 	rotate_lst_data(lst);
 		push_b(&lst, &lstb);
 
 		rotate_lst_data(lstb);
@@ -159,14 +96,15 @@ int main(int argc, char **argv)
 {
 	t_plst *lst;
 	t_plst *lstb;
-	int total;
+	t_pinfo info;
 
 	if (argc < 2)
 		ft_fprintf(2, "argument err\n");
 	lst = NULL;
 	lstb = NULL;
-	total = parse_arg(argv, &lst);
-	do_sort(lst, lstb, total);
+	ft_memset(&info, 0, sizeof(t_pinfo));
+	parse_arg(argv, &lst);
+	do_sort(lst, lstb, &info);
 }
 
 
