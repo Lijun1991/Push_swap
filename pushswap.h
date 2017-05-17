@@ -15,17 +15,11 @@
 
 # include "libft.h"
 
-typedef struct		s_pinfo
+typedef struct		s_plst
 {
-	t_list *lst;
-}					t_pinfo;
+	int data;
+	int group;
+	struct s_plst *next;
+}					t_plst;
 
 #endif
-
-
-// typedef	struct		s_list
-// {
-// 	void			*content;
-// 	size_t			content_size;
-// 	struct s_list	*next;
-// }					t_list;
