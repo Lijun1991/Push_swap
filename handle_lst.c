@@ -42,12 +42,15 @@ void	intert_lst_end(t_plst **lst, t_plst *new)
 {
 	t_plst *cur;
 
-	cur = *lst;
-	while (cur)
+	if (!*lst)
+		*lst = new;
+	else
 	{
-		cur = cur->next;
+		cur = *lst;
+		while (cur->next)
+			cur = cur->next;
+		cur->next = new;
 	}
-	*lst = new;
 }
 
 void	print_lst(t_plst *lst)

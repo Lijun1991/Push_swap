@@ -41,6 +41,7 @@ void	parse_arg(char **argv, t_plst **lst);
 */
 void	print_lst(t_plst *lst);
 void	intert_lst_front(t_plst **lst, t_plst *new);
+void	intert_lst_end(t_plst **lst, t_plst *new);
 t_plst	*new_lst_nbr(int data);
 t_plst	*new_lst(char *s);
 
