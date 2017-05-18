@@ -12,7 +12,7 @@
 
 #include "pushswap.h"
 
-void	count_nbr(t_plst *lst)
+int		count_nbr(t_plst *lst)
 {
 	t_plst *cur;
 	int count;
@@ -20,7 +20,10 @@ void	count_nbr(t_plst *lst)
 	cur = lst;
 	count = 0;
 	while (cur)
+	{
+		cur = cur->next;
 		count++;
+	}
 	return (count);
 }
 
@@ -28,9 +31,15 @@ int		get_last_data(t_plst *lst)
 {
 	t_plst *cur;
 
-	cur = lst;
-	while (cur->next)
-		cur = cur->next;
-	return (cur->data);
+	if (lst)
+	{
+		cur = lst;
+		while (cur && cur->next)
+		{
+			cur = cur->next;
+		}
+		return (cur->data);
+	}
+	return (0);
 }
 

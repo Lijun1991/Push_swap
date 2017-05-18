@@ -17,13 +17,13 @@ void	swap_data(t_plst *lst)
 	int tmp;
 
 	tmp = 0;
-	ft_printf("check swap[]");
+	// ft_printf("check swap[]");
 	if (lst->next)//&& lst->data > lst->next->data
 	{
 		tmp = lst->data;
 		lst->data = lst->next->data;
 		lst->next->data = tmp;
-		ft_printf("swap top two : \n");
+		// ft_printf("swap top two : \n");
 		print_lst(lst);
 	}
 	return ;
@@ -34,7 +34,7 @@ void	rotate_data(t_plst *lst, int last_data)
 	int tmp;
 	t_plst *cur;
 
-	ft_printf("check rotate[]");
+	// ft_printf("check rotate[]");
 	if (lst->next)//&& lst->data > last_data
 	{
 		tmp = lst->data;
@@ -43,7 +43,7 @@ void	rotate_data(t_plst *lst, int last_data)
 		while (cur->next)
 			cur = cur->next;
 		cur->data = tmp;
-		ft_printf("rotate first to last : \n");
+		// ft_printf("rotate first to last : \n");
 		print_lst(lst);
 	}
 	return ; 

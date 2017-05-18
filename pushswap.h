@@ -57,6 +57,6 @@ void	swap_rotate_swap(t_plst *lst, int last_data);
 ** helper.c
 */
 int		get_last_data(t_plst *lst);
-void	count_nbr(t_plst *lst);
+int		count_nbr(t_plst *lst);
 
 #endif

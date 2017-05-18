@@ -38,6 +38,18 @@ void	intert_lst_front(t_plst **lst, t_plst *new)
 	*lst = new;
 }
 
+void	intert_lst_end(t_plst **lst, t_plst *new)
+{
+	t_plst *cur;
+
+	cur = *lst;
+	while (cur)
+	{
+		cur = cur->next;
+	}
+	*lst = new;
+}
+
 void	print_lst(t_plst *lst)
 {
 	t_plst *cur;
@@ -48,4 +60,5 @@ void	print_lst(t_plst *lst)
 		ft_printf("%d\n", cur->data);
 		cur = cur->next;
 	}
+	ft_printf("\n");
 }
