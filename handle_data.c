@@ -72,28 +72,3 @@ void	rotate(t_plst **head, int n)
 	*head = nth_node->next;
 	nth_node->next = NULL;
 }
-
-// void	reverse_rotate(t_plst **head, int n)
-// {
-// 	int count;
-// 	t_plst *current;
-// 	t_plst *nth_node;
-
-// 	if (n == 0)
-// 		return;
-// 	current = *head;
-// 	count = 1;
-// 	while (count < n && current != NULL)
-// 	{
-// 		current = current->next;
-// 		count++;
-// 	}
-// 	if (current == NULL)
-// 		return;
-// 	nth_node = current;
-// 	while (current->next != NULL)
-// 		current = current->next;
-// 	current->next = *head;
-// 	*head = nth_node->next;
-// 	nth_node->next = NULL;
-// }

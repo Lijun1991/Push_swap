@@ -20,7 +20,7 @@ void	push_b(t_plst **lst, t_plst **lstb)
 	ft_printf(PURPLE"pb\n"CLN);
 	tmp = (*lst)->data;
 	intert_lst_front(lstb, new_lst_nbr(tmp));
-
+	free(*lst);
 	*lst = (*lst)->next;
 
 	// ft_printf("a is :\n");
@@ -40,6 +40,7 @@ void	push_a(t_plst **lst, t_plst **lstb)
 	{
 		tmp = (*lstb)->data;
 		intert_lst_front(lst, new_lst_nbr(tmp));
+		free(*lstb);
 		*lstb = (*lstb)->next;
 	}
 }
@@ -162,6 +163,47 @@ void	get_location_sa(t_plst *lst, t_pinfo *info)
 	info->times = get_times(lst, info);
 }
 
+void	do_sort_three(t_plst **lst, t_pinfo *info)
+{
+	int	last_data;
+
+	last_data = get_last_data(*lst);
+	if ((*lst)->data > (*lst)->next->data && (*lst)->next->data > last_data)//10 5 2
+	{
+		ft_printf(GREE"ra\n"CLN);
+		ft_printf(GREE"sa\n"CLN);
+		rotate(lst, 1);
+		swap_data(*lst);
+		info->steps = info->steps + 2;
+	}
+	if ((*lst)->data > last_data  && last_data > (*lst)->next->data)//10 2 5
+	{
+		ft_printf(GREE"ra\n"CLN);
+		rotate(lst, 1);
+		info->steps = info->steps + 1;
+	}
+	if ((*lst)->next->data > (*lst)->data && (*lst)->data > last_data)//5 10 2
+	{
+		ft_printf(GREE"rra\n"CLN);
+		rotate(lst, 2);
+		info->steps = info->steps + 1;
+	}
+	if ((*lst)->next->data > last_data && last_data > (*lst)->data)//2 10 5
+	{
+		ft_printf(GREE"sa\n"CLN);
+		ft_printf(GREE"ra\n"CLN);
+		swap_data(*lst);
+		rotate(lst, 1);
+		info->steps = info->steps + 2;
+	}
+	if (last_data > (*lst)->data && (*lst)->data > (*lst)->next->data)//5 2 10
+	{
+		ft_printf(GREE"sa\n"CLN);
+		swap_data(*lst);
+		info->steps = info->steps + 1;
+	}
+}
+
 void	do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 {
 	int total;
@@ -174,7 +216,7 @@ void	do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	// print_lst(*lst);
 	info->steps = 0;
 	info->countb =0;
-	while (total - 2)
+	while (total - 3)
 	{
 		info->top = 0;
 		get_location_sa(*lst, info);
@@ -198,14 +240,10 @@ void	do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 		}
 		total--;
 	}
+	if (total == 3)
+		do_sort_three(lst, info);
 	info->countb = count_nbr(*lstb);
 	info->steps = info->steps + info->countb;
-	if ((*lst)->data > (*lst)->next->data)
-	{
-		ft_printf(GREE"sa\n"CLN);
-		swap_data(*lst);
-		info->steps = info->steps + 1;
-	}
 	while (info->countb)
 	{
 		push_a(lst, lstb);
@@ -220,7 +258,10 @@ int main(int argc, char **argv)
 	t_pinfo info;
 
 	if (argc < 2)
+	{
 		ft_fprintf(2, "argument err\n");
+		return (0);
+	}
 	lst = NULL;
 	lstb = NULL;
 	ft_memset(&info, 0, sizeof(t_pinfo));
@@ -232,7 +273,8 @@ int main(int argc, char **argv)
 	print_lst(lst);
 	ft_printf(BLUE"end b is :\n"CLN);
 	print_lst(lstb);
-	ft_printf(RED"total steps %d\n"CLN, info.steps);
+	ft_printf(GREE"total steps %d\n"CLN, info.steps);
+	deep_free(lst);
 }
 
 

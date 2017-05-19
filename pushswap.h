@@ -61,7 +61,8 @@ int		check_all_inorder(t_plst *lst);
 /*
 ** helper.c
 */
-void	get_location_sa(t_plst *lst, t_pinfo *info);
 int		count_nbr(t_plst *lst);
+int		get_last_data(t_plst *lst);
+void	deep_free(t_plst *lst);
 
 #endif

@@ -27,19 +27,31 @@ int		count_nbr(t_plst *lst)
 	return (count);
 }
 
-// int		get_last_data(t_plst *lst)
-// {
-// 	t_plst *cur;
+int		get_last_data(t_plst *lst)
+{
+	t_plst *cur;
 
-// 	if (lst)
-// 	{
-// 		cur = lst;
-// 		while (cur && cur->next)
-// 		{
-// 			cur = cur->next;
-// 		}
-// 		return (cur->data);
-// 	}
-// 	return (0);
-// }
+	if (lst)
+	{
+		cur = lst;
+		while (cur && cur->next)
+		{
+			cur = cur->next;
+		}
+		return (cur->data);
+	}
+	return (0);
+}
 
+void	deep_free(t_plst *lst)
+{
+	t_plst *tmp;
+
+	while (lst)
+	{
+		tmp = lst->next;
+		free(lst);
+		lst = tmp;
+	}
+	free(lst);
+}
