@@ -29,41 +29,27 @@ void	swap_data(t_plst *lst)
 	return ;
 }
 
-void	rotate_data(t_plst *lst, int last_data)
+void	rotate(t_plst **head, int n)
 {
-	int tmp;
-	t_plst *cur;
+	int count;
+	t_plst *current;
+	t_plst *nth_node;
 
-	// ft_printf("check rotate[]");
-	if (lst->next)//&& lst->data > last_data
+	if (n == 0)
+		return;
+	current = *head;
+	count = 1;
+	while (count < n && current != NULL)
 	{
-		tmp = lst->data;
-		lst->data = last_data;
-		cur = lst;
-		while (cur->next)
-			cur = cur->next;
-		cur->data = tmp;
-		// ft_printf("rotate first to last : \n");
-		print_lst(lst);
+		current = current->next;
+		count++;
 	}
-	return ; 
-}
-
-void	rotate_n_swap(t_plst *lst, int last_data)
-{
-	rotate_data(lst, last_data);
-	swap_data(lst);
-}
-
-void	swap_n_rotate(t_plst *lst, int last_data)
-{
-	swap_data(lst);
-	rotate_data(lst, last_data);
-}
-
-void	swap_rotate_swap(t_plst *lst, int last_data)
-{
-	swap_data(lst);
-	rotate_data(lst, last_data);
-	swap_data(lst);
+	if (current == NULL)
+		return;
+	nth_node = current;
+	while (current->next != NULL)
+		current = current->next;
+	current->next = *head;
+	*head = nth_node->next;
+	nth_node->next = NULL;
 }

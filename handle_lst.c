@@ -63,5 +63,4 @@ void	print_lst(t_plst *lst)
 		ft_printf("%d\n", cur->data);
 		cur = cur->next;
 	}
-	ft_printf("\n");
 }
