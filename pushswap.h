@@ -25,11 +25,12 @@ typedef struct		s_plst
 typedef struct		s_pinfo
 {
 	int steps;
-	int counta;
+	double counta;
 	int countb;
 	// int lasta;
 	// int lastb;
 	int sa;
+	// int tmp_sa;
 	int at_middle;
 	int sa_loc;
 	int top;
@@ -55,10 +56,7 @@ t_plst	*new_lst(char *s);
 */
 void	swap_data(t_plst *lst);
 void	rotate(t_plst **lst, int n);
-// void	rotate_data(t_plst *lst, int last_data);
-// void	rotate_n_swap(t_plst *lst, int last_data);
-// void	swap_n_rotate(t_plst *lst, int last_data);
-// void	swap_rotate_swap(t_plst *lst, int last_data);
+int		check_all_inorder(t_plst *lst);
 
 /*
 ** helper.c

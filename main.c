@@ -63,21 +63,30 @@ int		get_smallest_a(t_plst *lst)
 	return (sa);
 }
 
-/*
-** check if the smallest number is in the middle of group a, we need to find  
-** the second small nub to rotate and push before it, then swap b.
-*/
 
-// int		check_at_middle(int count, t_plst *lst, t_pinfo *info)
-// {
-// 	if (count = (info->counta + 1) / 2)
-// 	{
-// 		find_second_small(lst);
+int		find_second_small(t_plst *lst, int sa, t_pinfo *info)
+{
+	t_plst	*cur;
+	int		tmp;
 
-// 	}
-// }
+	tmp = lst->data;
+	if (lst)
+	{
+		cur = lst;
+		while (lst)
+		{
+			if (lst->data < tmp && lst->data != sa)
+				tmp = lst->data;
+			lst = lst->next;
+		}
+		info->sa = tmp;
+		ft_printf("second sa is %d\n", info->sa);
+		return (1);
+	}
+	return (0);
+}
 
-int		get_times(t_plst *lst, t_pinfo *info)
+int		get_location(t_plst *lst, int tmp_sa)
 {
 	t_plst *cur;
 	int count;
@@ -88,13 +97,54 @@ int		get_times(t_plst *lst, t_pinfo *info)
 		cur = lst;
 		while (cur)
 		{
-			if (cur->data == info->sa)
+			if (cur->data == tmp_sa)
 				break;
 			count++;
 			cur = cur->next;
 		}
 	}
-	// check_at_middle(count, lst, info);
+	return (count);
+}
+
+/*
+** check if the smallest number is in the middle of group a, we need to find  
+** the second small nub to rotate and push before it, then swap b.
+*/
+
+int		check_at_middle(int count, t_plst *lst, t_pinfo *info)
+{
+	int tmp;
+	double nbr;
+	double nbr1;
+
+	nbr = (info->counta + 1) / 2;
+	nbr1 = count + 1;
+	tmp = info->sa;
+	// printf("info->counta is %f, count is %d, nbr is %f\n, nbr1 is %f\n", info->counta, count, nbr, nbr1);
+	if (nbr1 == nbr)
+	{
+		ft_printf("hello\n");
+		if (find_second_small(lst, tmp, info))
+			count = get_location(lst, info->sa);
+		// ft_printf("info->sa is %d\n, first location is %d\n", info->sa, count);
+		info->at_middle = 1;
+		return (count);
+	}
+	return (count);
+}
+
+int		get_times(t_plst *lst, t_pinfo *info)
+{
+	int count;
+
+	count = 0;
+	count = get_location(lst, info->sa);
+	// ft_printf("first location is %d\n", count);
+	if (info->at_middle)
+		info->at_middle++;
+	if ((int)info->counta > 3)
+		count = check_at_middle(count, lst, info);
+	// ft_printf("seconde location is %d\n", count);
 	info->sa_loc = count;
 	if (count < (info->counta + 1) / 2)
 	{
@@ -120,16 +170,17 @@ void	do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	total = 0;
 	total = count_nbr(*lst);
 
-	ft_printf("original :\n\n");
-	print_lst(*lst);
+	// ft_printf("original :\n\n");
+	// print_lst(*lst);
 	info->steps = 0;
+	info->countb =0;
 	while (total - 2)
 	{
 		info->top = 0;
-		info->at_middle = 0;
 		get_location_sa(*lst, info);
-		ft_printf("count a is %d, count b is %d, sa is %d\n", info->counta, info->countb, info->sa);
-		ft_printf("times a is %d, top %d, sa_loc is %d\n", info->times, info->top, info->sa_loc);
+
+		// ft_printf("count a is %f, count b is %d, sa is %d\n", info->counta, info->countb, info->sa);
+		// ft_printf("times a is %d, top %d, sa_loc is %d\n", info->times, info->top, info->sa_loc);
 		info->steps = info->steps + info->times + 1;
 		while (info->times)
 		{
@@ -138,6 +189,13 @@ void	do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 		}
 		rotate(lst, info->sa_loc);
 		push_b(lst, lstb);
+		if (info->at_middle == 2)
+		{
+			ft_printf(GREE"sb\n"CLN);
+			swap_data(*lstb);
+			info->at_middle = 0;
+			info->steps = info->steps + 1;
+		}
 		total--;
 	}
 	info->countb = count_nbr(*lstb);
@@ -167,6 +225,8 @@ int main(int argc, char **argv)
 	lstb = NULL;
 	ft_memset(&info, 0, sizeof(t_pinfo));
 	parse_arg(argv, &lst);
+	if (check_all_inorder(lst))
+		return (0);
 	do_sort(&lst, &lstb, &info);
 	ft_printf(BLUE"end a is :\n"CLN);
 	print_lst(lst);
