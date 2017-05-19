@@ -30,6 +30,7 @@ typedef struct		s_pinfo
 	// int lasta;
 	// int lastb;
 	int sa;
+	int at_middle;
 	int sa_loc;
 	int top;
 	int times;

@@ -23,11 +23,11 @@ void	push_b(t_plst **lst, t_plst **lstb)
 
 	*lst = (*lst)->next;
 
-	ft_printf("a is :\n");
-	print_lst(*lst);
+	// ft_printf("a is :\n");
+	// print_lst(*lst);
 
-	ft_printf("\nb is :\n");
-	print_lst(*lstb);
+	// ft_printf("\nb is :\n");
+	// print_lst(*lstb);
 }
 
 void	push_a(t_plst **lst, t_plst **lstb)
@@ -63,6 +63,20 @@ int		get_smallest_a(t_plst *lst)
 	return (sa);
 }
 
+/*
+** check if the smallest number is in the middle of group a, we need to find  
+** the second small nub to rotate and push before it, then swap b.
+*/
+
+// int		check_at_middle(int count, t_plst *lst, t_pinfo *info)
+// {
+// 	if (count = (info->counta + 1) / 2)
+// 	{
+// 		find_second_small(lst);
+
+// 	}
+// }
+
 int		get_times(t_plst *lst, t_pinfo *info)
 {
 	t_plst *cur;
@@ -80,8 +94,9 @@ int		get_times(t_plst *lst, t_pinfo *info)
 			cur = cur->next;
 		}
 	}
+	// check_at_middle(count, lst, info);
 	info->sa_loc = count;
-	if (count <= (info->counta + 1) / 2)
+	if (count < (info->counta + 1) / 2)
 	{
 		info->top = 1;
 		return (count);
@@ -110,9 +125,11 @@ void	do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	info->steps = 0;
 	while (total - 2)
 	{
+		info->top = 0;
+		info->at_middle = 0;
 		get_location_sa(*lst, info);
-		// ft_printf("count a is %d, count b is %d, sa is %d\n", info->counta, info->countb, info->sa);
-		// ft_printf("times a is %d, top %d, sa_loc is %d\n", info->times, info->top, info->sa_loc);
+		ft_printf("count a is %d, count b is %d, sa is %d\n", info->counta, info->countb, info->sa);
+		ft_printf("times a is %d, top %d, sa_loc is %d\n", info->times, info->top, info->sa_loc);
 		info->steps = info->steps + info->times + 1;
 		while (info->times)
 		{
@@ -125,6 +142,12 @@ void	do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	}
 	info->countb = count_nbr(*lstb);
 	info->steps = info->steps + info->countb;
+	if ((*lst)->data > (*lst)->next->data)
+	{
+		ft_printf(GREE"sa\n"CLN);
+		swap_data(*lst);
+		info->steps = info->steps + 1;
+	}
 	while (info->countb)
 	{
 		push_a(lst, lstb);
