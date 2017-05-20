@@ -12,6 +12,21 @@
 
 #include "pushswap.h"
 
+void	double_free(char **av)
+{
+	int	i;
+
+	i = 0;
+	while (av[i])
+	{
+		free(av[i]);
+		av[i] = NULL;
+		i++;
+	}
+	free(av);
+	av = NULL;
+}
+
 int		check_all_inorder(t_plst *lst)
 {
 	t_plst	*cur;
@@ -34,19 +49,54 @@ int		check_all_inorder(t_plst *lst)
 	return (0);
 }
 
-int		parse_arg(char **argv, t_plst **lst)
+int		get_len(char **av)
 {
-	int len;
+	int i;
+
+	i = 0;
+	while (av[i])
+		i++;
+	return (i);
+}
+
+int		parse_arg(int argc, char **argv, t_plst **lst)
+{
+	char	**av;
+	int		len;
 
 	len = 0;
-	if (check_arg(argv))
+	av = argv;
+	if (argc == 2)
+	{
+		av = ft_strsplit(argv[1], ' ');
+		if (get_len(av) == 1 && !(check_arg(av)))
+		{
+			double_free(av);
+			return (2);
+		}
+		else if (get_len(av) == 1 && (check_arg(av)))
+		{
+			return (1);
+		}
+	}
+	if (argc == 2 && check_arg(av))
+	{
+		double_free(av);
 		return (1);
-	while (argv[len])
+	}
+	if (check_arg(av))
+		return (1);
+	while (av[len])
 		len++;
+	// ft_printf("len is %d\n", len);
 	while (len - 1)
 	{
-		intert_lst_front(lst, new_lst(argv[len - 1]));
+		intert_lst_front(lst, new_lst(av[len - 1]));
 		len--;
 	}
+	if (argc == 2 && len == 1)
+		intert_lst_front(lst, new_lst(av[0]));
+	if (argc == 2)
+		double_free(av);
 	return (0);
 }

@@ -14,7 +14,7 @@
 
 t_plst	*new_lst(char *s)
 {
-	t_plst *new;
+	t_plst	*new;
 
 	new = malloc(sizeof(t_plst));
 	new->data = ft_atoi(s);
@@ -24,7 +24,7 @@ t_plst	*new_lst(char *s)
 
 t_plst	*new_lst_nbr(int data)
 {
-	t_plst *new;
+	t_plst	*new;
 
 	new = malloc(sizeof(t_plst));
 	new->data = data;
@@ -38,24 +38,9 @@ void	intert_lst_front(t_plst **lst, t_plst *new)
 	*lst = new;
 }
 
-// void	intert_lst_end(t_plst **lst, t_plst *new)
-// {
-// 	t_plst *cur;
-
-// 	if (!*lst)
-// 		*lst = new;
-// 	else
-// 	{
-// 		cur = *lst;
-// 		while (cur->next)
-// 			cur = cur->next;
-// 		cur->next = new;
-// 	}
-// }
-
 void	print_lst(t_plst *lst)
 {
-	t_plst *cur;
+	t_plst	*cur;
 
 	cur = lst;
 	while (cur)

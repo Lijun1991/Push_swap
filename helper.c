@@ -14,8 +14,8 @@
 
 int		count_nbr(t_plst *lst)
 {
-	t_plst *cur;
-	int count;
+	t_plst	*cur;
+	int		count;
 
 	cur = lst;
 	count = 0;
@@ -29,7 +29,7 @@ int		count_nbr(t_plst *lst)
 
 int		get_last_data(t_plst *lst)
 {
-	t_plst *cur;
+	t_plst	*cur;
 
 	if (lst)
 	{
@@ -45,7 +45,7 @@ int		get_last_data(t_plst *lst)
 
 int		get_smallest_a(t_plst *lst)
 {
-	t_plst *cur;
+	t_plst	*cur;
 	int sa;
 
 	sa = lst->data;
@@ -84,7 +84,7 @@ int		get_location(t_plst *lst, int tmp_sa)
 
 void	deep_free(t_plst *lst)
 {
-	t_plst *tmp;
+	t_plst	*tmp;
 
 	while (lst)
 	{

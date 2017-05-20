@@ -12,26 +12,31 @@
 
 #include "pushswap.h"
 
-void	get_location_sa(t_plst *lst, t_pinfo *info)
+static void	sort_way1(t_plst **lst, t_pinfo *info)
 {
-	info->counta = count_nbr(lst);
-	info->sa = get_smallest_a(lst);
-	info->times = get_times(lst, info);
+	ft_printf("ra\n");
+	ft_printf("sa\n");
+	rotate(lst, 1);
+	swap_data(*lst);
+	info->steps = info->steps + 2;
 }
 
-void	do_sort_three(t_plst **lst, t_pinfo *info)
+static void	sort_way2(t_plst **lst, t_pinfo *info)
+{
+	ft_printf("sa\n");
+	ft_printf("ra\n");
+	swap_data(*lst);
+	rotate(lst, 1);
+	info->steps = info->steps + 2;
+}
+
+void		do_sort_three(t_plst **lst, t_pinfo *info)
 {
 	int	last_data;
 
 	last_data = get_last_data(*lst);
 	if ((*lst)->data > (*lst)->next->data && (*lst)->next->data > last_data)//10 5 2
-	{
-		ft_printf("ra\n");
-		ft_printf("sa\n");
-		rotate(lst, 1);
-		swap_data(*lst);
-		info->steps = info->steps + 2;
-	}
+		sort_way1(lst, info);
 	if ((*lst)->data > last_data  && last_data > (*lst)->next->data)//10 2 5
 	{
 		ft_printf("ra\n");
@@ -45,13 +50,7 @@ void	do_sort_three(t_plst **lst, t_pinfo *info)
 		info->steps = info->steps + 1;
 	}
 	if ((*lst)->next->data > last_data && last_data > (*lst)->data)//2 10 5
-	{
-		ft_printf("sa\n");
-		ft_printf("ra\n");
-		swap_data(*lst);
-		rotate(lst, 1);
-		info->steps = info->steps + 2;
-	}
+		sort_way2(lst, info);
 	if (last_data > (*lst)->data && (*lst)->data > (*lst)->next->data)//5 2 10
 	{
 		ft_printf("sa\n");
@@ -60,15 +59,9 @@ void	do_sort_three(t_plst **lst, t_pinfo *info)
 	}
 }
 
-void	do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
+static void	core_sort(int *total, t_pinfo *info, t_plst **lst, t_plst **lstb)
 {
-	int total;
-
-	total = 0;
-	total = count_nbr(*lst);
-	info->steps = 0;
-	info->countb =0;
-	while (total - 3)
+	while (*total - 3)
 	{
 		info->top = 0;
 		get_location_sa(*lst, info);
@@ -88,8 +81,19 @@ void	do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 			info->at_middle = 0;
 			info->steps = info->steps + 1;
 		}
-		total--;
+		(*total)--;
 	}
+}
+
+void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
+{
+	int	total;
+
+	total = 0;
+	total = count_nbr(*lst);
+	info->steps = 0;
+	info->countb =0;
+	core_sort(&total, info, lst, lstb);
 	if (total == 3)
 		do_sort_three(lst, info);
 	info->countb = count_nbr(*lstb);

@@ -12,9 +12,16 @@
 
 #include "pushswap.h"
 
+void	get_location_sa(t_plst *lst, t_pinfo *info)
+{
+	info->counta = count_nbr(lst);
+	info->sa = get_smallest_a(lst);
+	info->times = get_times(lst, info);
+}
+
 void	swap_data(t_plst *lst)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = 0;
 	if (lst->next)
@@ -28,9 +35,9 @@ void	swap_data(t_plst *lst)
 
 void	rotate(t_plst **head, int n)
 {
-	int count;
-	t_plst *current;
-	t_plst *nth_node;
+	int		count;
+	t_plst	*current;
+	t_plst	*nth_node;
 
 	if (n == 0)
 		return;
@@ -53,24 +60,26 @@ void	rotate(t_plst **head, int n)
 
 void	push_b(t_plst **lst, t_plst **lstb)
 {
-	int tmp;
+	t_plst	*tmp;
 
-	tmp = (*lst)->data;
-	intert_lst_front(lstb, new_lst_nbr(tmp));
+	tmp = (*lst)->next;
+	intert_lst_front(lstb, new_lst_nbr((*lst)->data));
 	free(*lst);
-	*lst = (*lst)->next;
+	*lst = NULL;
+	*lst = tmp;
 }
 
 void	push_a(t_plst **lst, t_plst **lstb)
 {
-	int		tmp;
+	t_plst	*tmp;
 
-	tmp = 0;
+	tmp = NULL;
 	while (*lstb)
 	{
-		tmp = (*lstb)->data;
-		intert_lst_front(lst, new_lst_nbr(tmp));
+		tmp = (*lstb)->next;
+		intert_lst_front(lst, new_lst_nbr((*lstb)->data));
 		free(*lstb);
-		*lstb = (*lstb)->next;
+		*lstb = NULL;
+		*lstb = tmp;
 	}
 }

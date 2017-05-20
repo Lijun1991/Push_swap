@@ -14,7 +14,7 @@
 
 int		ck_is_nbr(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -47,7 +47,7 @@ int		ck_is_int(char *s)
 
 int		ck(int i, char *s, char **av)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (av[j])
@@ -61,8 +61,8 @@ int		ck(int i, char *s, char **av)
 
 int		ck_dup(char **argv)
 {
-	int i;
-	char *s;
+	int		i;
+	char	*s;
 
 	i = 1;
 	s = NULL;
@@ -74,6 +74,7 @@ int		ck_dup(char **argv)
 			free(s);
 			return (1);
 		}
+		free(s);
 		i++;
 	}
 	return (0);

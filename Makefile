@@ -33,7 +33,6 @@ $(NAME): $(OBJ)
 	gcc $(CFLAGS) -o $(NAME) $(OBJ) -L libft/ -lft
 
 $(NAME1): $(OBJ1)
-	make -C ./libft
 	gcc $(CFLAGS) -o $(NAME1) $(OBJ1) -L libft/ -lft
 
 clean:
