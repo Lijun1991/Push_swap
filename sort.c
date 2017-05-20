@@ -35,23 +35,23 @@ void		do_sort_three(t_plst **lst, t_pinfo *info)
 	int	last_data;
 
 	last_data = get_last_data(*lst);
-	if ((*lst)->data > (*lst)->next->data && (*lst)->next->data > last_data)//10 5 2
+	if ((*lst)->data > (*lst)->next->data && (*lst)->next->data > last_data)
 		sort_way1(lst, info);
-	if ((*lst)->data > last_data  && last_data > (*lst)->next->data)//10 2 5
+	if ((*lst)->data > last_data && last_data > (*lst)->next->data)
 	{
 		ft_printf("ra\n");
 		rotate(lst, 1);
 		info->steps = info->steps + 1;
 	}
-	if ((*lst)->next->data > (*lst)->data && (*lst)->data > last_data)//5 10 2
+	if ((*lst)->next->data > (*lst)->data && (*lst)->data > last_data)
 	{
 		ft_printf("rra\n");
 		rotate(lst, 2);
 		info->steps = info->steps + 1;
 	}
-	if ((*lst)->next->data > last_data && last_data > (*lst)->data)//2 10 5
+	if ((*lst)->next->data > last_data && last_data > (*lst)->data)
 		sort_way2(lst, info);
-	if (last_data > (*lst)->data && (*lst)->data > (*lst)->next->data)//5 2 10
+	if (last_data > (*lst)->data && (*lst)->data > (*lst)->next->data)
 	{
 		ft_printf("sa\n");
 		swap_data(*lst);
@@ -92,7 +92,7 @@ void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	total = 0;
 	total = count_nbr(*lst);
 	info->steps = 0;
-	info->countb =0;
+	info->countb = 0;
 	core_sort(&total, info, lst, lstb);
 	if (total == 3)
 		do_sort_three(lst, info);

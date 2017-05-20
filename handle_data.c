@@ -40,7 +40,7 @@ void	rotate(t_plst **head, int n)
 	t_plst	*nth_node;
 
 	if (n == 0)
-		return;
+		return ;
 	current = *head;
 	count = 1;
 	while (count < n && current != NULL)
@@ -49,7 +49,7 @@ void	rotate(t_plst **head, int n)
 		count++;
 	}
 	if (current == NULL)
-		return;
+		return ;
 	nth_node = current;
 	while (current->next != NULL)
 		current = current->next;

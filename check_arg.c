@@ -23,7 +23,7 @@ int		ck_is_nbr(char *s)
 			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 int		ck_is_int(char *s)

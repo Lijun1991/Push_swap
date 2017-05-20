@@ -12,7 +12,7 @@
 
 #include "pushswap.h"
 
-static int		find_second_small(t_plst *lst, int sa, t_pinfo *info)
+static int	find_second_small(t_plst *lst, int sa, t_pinfo *info)
 {
 	t_plst	*cur;
 	int		tmp;
@@ -34,7 +34,7 @@ static int		find_second_small(t_plst *lst, int sa, t_pinfo *info)
 }
 
 /*
-** check if the smallest number is in the middle of group a, we need to find  
+** check if the smallest number is in the middle of group a, we need to find
 ** the second small nub to rotate and push before it, then swap b.
 */
 

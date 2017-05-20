@@ -88,7 +88,6 @@ int		parse_arg(int argc, char **argv, t_plst **lst)
 		return (1);
 	while (av[len])
 		len++;
-	// ft_printf("len is %d\n", len);
 	while (len - 1)
 	{
 		intert_lst_front(lst, new_lst(av[len - 1]));

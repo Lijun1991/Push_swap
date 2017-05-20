@@ -46,7 +46,7 @@ int		get_last_data(t_plst *lst)
 int		get_smallest_a(t_plst *lst)
 {
 	t_plst	*cur;
-	int sa;
+	int		sa;
 
 	sa = lst->data;
 	if (lst)
@@ -64,8 +64,8 @@ int		get_smallest_a(t_plst *lst)
 
 int		get_location(t_plst *lst, int tmp_sa)
 {
-	t_plst *cur;
-	int count;
+	t_plst	*cur;
+	int		count;
 
 	count = 0;
 	if (lst)
@@ -74,7 +74,7 @@ int		get_location(t_plst *lst, int tmp_sa)
 		while (cur)
 		{
 			if (cur->data == tmp_sa)
-				break;
+				break ;
 			count++;
 			cur = cur->next;
 		}
