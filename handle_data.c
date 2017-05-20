@@ -55,7 +55,6 @@ void	push_b(t_plst **lst, t_plst **lstb)
 {
 	int tmp;
 
-	ft_printf(PURPLE"pb\n"CLN);
 	tmp = (*lst)->data;
 	intert_lst_front(lstb, new_lst_nbr(tmp));
 	free(*lst);
@@ -67,7 +66,6 @@ void	push_a(t_plst **lst, t_plst **lstb)
 	int		tmp;
 
 	tmp = 0;
-	ft_printf(YELLOW"pa\n"CLN);
 	while (*lstb)
 	{
 		tmp = (*lstb)->data;

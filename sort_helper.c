@@ -28,7 +28,7 @@ static int		find_second_small(t_plst *lst, int sa, t_pinfo *info)
 			lst = lst->next;
 		}
 		info->sa = tmp;
-		ft_printf("second sa is %d\n", info->sa);
+		// ft_printf("second sa is %d\n", info->sa);
 		return (1);
 	}
 	return (0);
@@ -50,7 +50,7 @@ int			check_at_middle(int count, t_plst *lst, t_pinfo *info)
 	tmp = info->sa;
 	if (nbr1 == nbr)
 	{
-		ft_printf("hello\n");
+		// ft_printf("hello\n");
 		if (find_second_small(lst, tmp, info))
 			count = get_location(lst, info->sa);
 		info->at_middle = 1;
