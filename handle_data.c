@@ -12,28 +12,6 @@
 
 #include "pushswap.h"
 
-int		check_all_inorder(t_plst *lst)
-{
-	t_plst	*cur;
-	int 	tmp;
-	int		len;
-
-	cur = lst;
-	tmp = 0;
-	len = count_nbr(lst);
-	while (cur->next)
-	{	
-		tmp = cur->next->data;
-		if (tmp < cur->data)
-			break;
-		cur = cur->next;
-		len--;
-	}
-	if (len == 1)
-		return (1);
-	return (0);
-}
-
 void	swap_data(t_plst *lst)
 {
 	int tmp;
@@ -71,4 +49,30 @@ void	rotate(t_plst **head, int n)
 	current->next = *head;
 	*head = nth_node->next;
 	nth_node->next = NULL;
+}
+
+void	push_b(t_plst **lst, t_plst **lstb)
+{
+	int tmp;
+
+	ft_printf(PURPLE"pb\n"CLN);
+	tmp = (*lst)->data;
+	intert_lst_front(lstb, new_lst_nbr(tmp));
+	free(*lst);
+	*lst = (*lst)->next;
+}
+
+void	push_a(t_plst **lst, t_plst **lstb)
+{
+	int		tmp;
+
+	tmp = 0;
+	ft_printf(YELLOW"pa\n"CLN);
+	while (*lstb)
+	{
+		tmp = (*lstb)->data;
+		intert_lst_front(lst, new_lst_nbr(tmp));
+		free(*lstb);
+		*lstb = (*lstb)->next;
+	}
 }

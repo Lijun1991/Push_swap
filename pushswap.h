@@ -37,32 +37,60 @@ typedef struct		s_pinfo
 	int times;
 }					t_pinfo;
 
-/*
-** parse_arg.c
-*/
-void	parse_arg(char **argv, t_plst **lst);
 
 /*
-** handle_lst.c 
+** check_arg.c 
 */
-void	print_lst(t_plst *lst);
-void	intert_lst_front(t_plst **lst, t_plst *new);
-void	intert_lst_end(t_plst **lst, t_plst *new);
-t_plst	*new_lst_nbr(int data);
-t_plst	*new_lst(char *s);
+int		ck_is_nbr(char *s);
+int		ck_is_int(char *s);
+int		ck(int i, char *s, char **av);
+int		ck_dup(char **argv);
+int		check_arg(char **argv);
 
 /*
 ** handle_data.c
 */
 void	swap_data(t_plst *lst);
 void	rotate(t_plst **lst, int n);
-int		check_all_inorder(t_plst *lst);
+void	push_b(t_plst **lst, t_plst **lstb);
+void	push_a(t_plst **lst, t_plst **lstb);
+
+/*
+** handle_lst.c 
+*/
+void	intert_lst_front(t_plst **lst, t_plst *new);
+// void	intert_lst_end(t_plst **lst, t_plst *new);
+t_plst	*new_lst_nbr(int data);
+t_plst	*new_lst(char *s);
+void	print_lst(t_plst *lst);
 
 /*
 ** helper.c
 */
 int		count_nbr(t_plst *lst);
 int		get_last_data(t_plst *lst);
+int		get_smallest_a(t_plst *lst);
+int		get_location(t_plst *lst, int tmp_sa);
 void	deep_free(t_plst *lst);
+
+/*
+** parse_arg.c
+*/
+int		check_all_inorder(t_plst *lst);
+int		parse_arg(char **argv, t_plst **lst);
+
+/*
+** sort.c
+*/
+void	do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info);
+void	do_sort_three(t_plst **lst, t_pinfo *info);
+void	get_location_sa(t_plst *lst, t_pinfo *info);
+
+/*
+** sort_helper.c
+*/
+int		get_times(t_plst *lst, t_pinfo *info);
+int		check_at_middle(int count, t_plst *lst, t_pinfo *info);
+
 
 #endif

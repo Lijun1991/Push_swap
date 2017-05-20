@@ -12,7 +12,8 @@
 
 NAME = push_swap 
 
-SRC = main.c parse_arg.c handle_lst.c handle_data.c helper.c 
+SRC = main.c parse_arg.c handle_lst.c handle_data.c helper.c sort.c \
+sort_helper.c check_arg.c 
 
 OBJ = $(SRC:.c=.o)
 

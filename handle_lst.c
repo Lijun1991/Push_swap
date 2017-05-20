@@ -38,20 +38,20 @@ void	intert_lst_front(t_plst **lst, t_plst *new)
 	*lst = new;
 }
 
-void	intert_lst_end(t_plst **lst, t_plst *new)
-{
-	t_plst *cur;
+// void	intert_lst_end(t_plst **lst, t_plst *new)
+// {
+// 	t_plst *cur;
 
-	if (!*lst)
-		*lst = new;
-	else
-	{
-		cur = *lst;
-		while (cur->next)
-			cur = cur->next;
-		cur->next = new;
-	}
-}
+// 	if (!*lst)
+// 		*lst = new;
+// 	else
+// 	{
+// 		cur = *lst;
+// 		while (cur->next)
+// 			cur = cur->next;
+// 		cur->next = new;
+// 	}
+// }
 
 void	print_lst(t_plst *lst)
 {
