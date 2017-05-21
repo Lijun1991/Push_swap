@@ -28,8 +28,8 @@ int main(int argc, char **argv)
 	ft_memset(&info, 0, sizeof(t_pinfo));
 	if (parse_arg(argv, &lst))
 	{
-		// ft_fprintf(2, "Arg Error\n");
-		return (0);
+		ft_fprintf(2, "Arg Error\n");
+		return (1);
 	}
 	if (check_all_inorder(lst))
 		return (0);

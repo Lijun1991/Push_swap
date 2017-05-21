@@ -17,6 +17,10 @@ int		ck_is_nbr(char *s)
 	int i;
 
 	i = 0;
+	if (s[0] == '\0')
+		return (1);
+	if (s[0] == '-' && s[1] != '\0')
+		i++;
 	while (s[i])
 	{
 		if (s[i] < 48 || s[i] > 59)
