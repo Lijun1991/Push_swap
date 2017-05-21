@@ -61,7 +61,7 @@ void		do_sort_three(t_plst **lst, t_pinfo *info)
 
 static void	core_sort(int *total, t_pinfo *info, t_plst **lst, t_plst **lstb)
 {
-	while (*total - 3)
+	while (*total - 3 > 0)
 	{
 		info->top = 0;
 		get_location_sa(*lst, info);
@@ -93,9 +93,17 @@ void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	total = count_nbr(*lst);
 	info->steps = 0;
 	info->countb = 0;
+
 	core_sort(&total, info, lst, lstb);
 	if (total == 3)
 		do_sort_three(lst, info);
+	if (total == 2)
+		if ((*lst)->next->data < (*lst)->data)
+		{
+			ft_printf("sa\n");
+			swap_data(*lst);
+			info->steps = info->steps + 1;
+		}
 	info->countb = count_nbr(*lstb);
 	info->steps = info->steps + info->countb;
 	while (info->countb)

@@ -61,41 +61,18 @@ int		get_len(char **av)
 
 int		parse_arg(int argc, char **argv, t_plst **lst)
 {
-	char	**av;
+	(void)argc;
 	int		len;
 
 	len = 0;
-	av = argv;
-	if (argc == 2)
-	{
-		av = ft_strsplit(argv[1], ' ');
-		if (get_len(av) == 1 && !(check_arg(av)))
-		{
-			double_free(av);
-			return (2);
-		}
-		else if (get_len(av) == 1 && (check_arg(av)))
-		{
-			return (1);
-		}
-	}
-	if (argc == 2 && check_arg(av))
-	{
-		double_free(av);
+	if (check_arg(argv))
 		return (1);
-	}
-	if (check_arg(av))
-		return (1);
-	while (av[len])
+	while (argv[len])
 		len++;
 	while (len - 1)
 	{
-		intert_lst_front(lst, new_lst(av[len - 1]));
+		intert_lst_front(lst, new_lst(argv[len - 1]));
 		len--;
 	}
-	if (argc == 2 && len == 1)
-		intert_lst_front(lst, new_lst(av[0]));
-	if (argc == 2)
-		double_free(av);
 	return (0);
 }

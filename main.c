@@ -17,9 +17,7 @@ int main(int argc, char **argv)
 	t_plst	*lst;
 	t_plst	*lstb;
 	t_pinfo	info;
-	int		k;
 
-	k = 0;
 	if (argc < 2)
 	{
 		ft_fprintf(2, "Arg Error\n");
@@ -28,14 +26,11 @@ int main(int argc, char **argv)
 	lst = NULL;
 	lstb = NULL;
 	ft_memset(&info, 0, sizeof(t_pinfo));
-	k = parse_arg(argc, argv, &lst);
-	if (k == 1)
+	if (parse_arg(argc, argv, &lst))
 	{
 		ft_fprintf(2, "Arg Error\n");
 		return (0);
 	}
-	if (k == 2)
-		return (0);
 	if (check_all_inorder(lst))
 		return (0);
 	do_sort(&lst, &lstb, &info);

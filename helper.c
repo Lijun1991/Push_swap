@@ -31,7 +31,7 @@ int		get_last_data(t_plst *lst)
 {
 	t_plst	*cur;
 
-	if (lst)
+	if (lst->next)
 	{
 		cur = lst;
 		while (cur && cur->next)
@@ -49,7 +49,7 @@ int		get_smallest_a(t_plst *lst)
 	int		sa;
 
 	sa = lst->data;
-	if (lst)
+	if (lst->next)
 	{
 		cur = lst;
 		while (cur)
