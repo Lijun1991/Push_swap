@@ -24,8 +24,12 @@ typedef struct		s_plst
 
 typedef struct		s_pinfo
 {
+	int		if_top_part1;
+	int		if_top_part2;
+	int		if_top_part3;
 	int		steps;
 	double	counta;
+
 	int		countb;
 	int		sa;
 	int		at_middle;

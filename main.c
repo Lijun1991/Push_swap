@@ -12,6 +12,19 @@
 
 #include "pushswap.h"
 
+void	print_lst(t_plst *lst)
+{
+	t_plst *cur;
+
+	cur = lst;
+	while (cur)
+	{
+		ft_printf("%d\n", cur->data);
+		cur = cur->next;
+	}
+	ft_printf("\n");
+}
+
 int	main(int argc, char **argv)
 {
 	t_plst	*lst;
@@ -31,7 +44,17 @@ int	main(int argc, char **argv)
 		ft_fprintf(2, "Arg Error\n");
 		return (1);
 	}
+
+	ft_printf("original: \n");//
+	print_lst(lst);//
+
 	if (!(check_all_inorder(lst)))
 		do_sort(&lst, &lstb, &info);
+
+	ft_printf("\na is: \n");//
+	print_lst(lst);//
+	ft_printf("\nb is: \n");//
+	print_lst(lstb);//
+
 	deep_free(lst);
 }
