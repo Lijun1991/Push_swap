@@ -12,19 +12,6 @@
 
 #include "pushswap.h"
 
-void	print_lst(t_plst *lst)
-{
-	t_plst *cur;
-
-	cur = lst;
-	while (cur)
-	{
-		ft_printf("%d\n", cur->data);
-		cur = cur->next;
-	}
-	ft_printf("\n");
-}
-
 int	main(int argc, char **argv)
 {
 	t_plst	*lst;

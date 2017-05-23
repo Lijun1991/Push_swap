@@ -62,25 +62,25 @@ int		get_smallest_a(t_plst *lst)
 	return (sa);
 }
 
-int		get_location(t_plst *lst, int tmp_sa)
-{
-	t_plst	*cur;
-	int		count;
+// int		get_location(t_plst *lst, int tmp_sa)
+// {
+// 	t_plst	*cur;
+// 	int		count;
 
-	count = 0;
-	if (lst)
-	{
-		cur = lst;
-		while (cur)
-		{
-			if (cur->data == tmp_sa)
-				break ;
-			count++;
-			cur = cur->next;
-		}
-	}
-	return (count);
-}
+// 	count = 0;
+// 	if (lst)
+// 	{
+// 		cur = lst;
+// 		while (cur)
+// 		{
+// 			if (cur->data == tmp_sa)
+// 				break ;
+// 			count++;
+// 			cur = cur->next;
+// 		}
+// 	}
+// 	return (count);
+// }
 
 void	deep_free(t_plst *lst)
 {

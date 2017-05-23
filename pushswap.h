@@ -24,9 +24,17 @@ typedef struct		s_plst
 
 typedef struct		s_pinfo
 {
-	int		if_top_part1;
-	int		if_top_part2;
-	int		if_top_part3;
+	int		if_top_part;
+	// int		if_top_part2;
+	// int		if_top_part3;
+	int		for_rotate;
+	// int		for_rotate2;
+	// int		for_rotate3;
+	int		for_move_step;
+	// int		for_move_step2;
+	// int		for_move_step3;
+	int		top_nbr;
+	int		last_nbr;
 	int		steps;
 	double	counta;
 
@@ -37,6 +45,9 @@ typedef struct		s_pinfo
 	int		top;
 	int		times;
 }					t_pinfo;
+
+void				print_lst(t_plst *lst);
+
 
 /*
 ** check_arg.c
@@ -74,7 +85,7 @@ t_plst				*new_lst(char *s);
 int					count_nbr(t_plst *lst);
 int					get_last_data(t_plst *lst);
 int					get_smallest_a(t_plst *lst);
-int					get_location(t_plst *lst, int tmp_sa);
+// int					get_location(t_plst *lst, int tmp_sa);
 void				deep_free(t_plst *lst);
 
 /*
