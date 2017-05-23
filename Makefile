@@ -17,7 +17,7 @@ SRC = main.c parse_arg.c handle_lst.c handle_data.c helper.c sort.c \
 sort_helper.c check_arg.c 
 
 SRC1 = checker.c parse_arg.c handle_lst.c handle_data.c helper.c sort.c \
-sort_helper.c check_arg.c 
+sort_helper.c check_arg.c checker_moves.c
 
 OBJ = $(SRC:.c=.o)
 

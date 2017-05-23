@@ -150,6 +150,7 @@ int					skip_space(char const *str);
 int					pputchar(char c, int fd);
 int					pputstr(char const *s, int fd);
 int					ft_abs(int n);
+long long			ft_ato_longlong(char *str);
 
 /*
 ** ft_fprintf.c

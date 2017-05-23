@@ -41,7 +41,7 @@ int		ck_is_int(char *s)
 	{
 		if (ft_strlen(s) > 11)
 			return (1);
-		tmp = ft_atoi(s);
+		tmp = ft_ato_longlong(s);
 		if (tmp > 2147483647 || tmp < -2147483648)
 			return (1);
 		i++;

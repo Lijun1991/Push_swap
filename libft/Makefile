@@ -35,7 +35,7 @@ SRC = ft_atoi.c ft_itoa.c ft_bzero.c \
 	print_nbr_str.c print_number.c print_number_conversion.c print_string.c \
 	print_wide_string.c print_wstr_helper.c\
 	ft_fprintf.c print_fprintf_helper.c\
-	get_next_line.c
+	get_next_line.c ft_ato_longlong.c
 
 
 OBJ = $(SRC:.c=.o)

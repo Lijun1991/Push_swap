@@ -24,7 +24,7 @@ void	swap_data(t_plst *lst)
 	int	tmp;
 
 	tmp = 0;
-	if (lst->next)
+	if (lst && lst->next)
 	{
 		tmp = lst->data;
 		lst->data = lst->next->data;
@@ -62,11 +62,15 @@ void	push_b(t_plst **lst, t_plst **lstb)
 {
 	t_plst	*tmp;
 
-	tmp = (*lst)->next;
-	intert_lst_front(lstb, new_lst_nbr((*lst)->data));
-	free(*lst);
-	*lst = NULL;
-	*lst = tmp;
+	tmp = NULL;
+	if (*lst)
+	{
+		tmp = (*lst)->next != NULL ? (*lst)->next : NULL;
+		intert_lst_front(lstb, new_lst_nbr((*lst)->data));
+		free(*lst);
+		*lst = NULL;
+		*lst = tmp;
+	}
 }
 
 void	push_a(t_plst **lst, t_plst **lstb)
@@ -74,9 +78,9 @@ void	push_a(t_plst **lst, t_plst **lstb)
 	t_plst	*tmp;
 
 	tmp = NULL;
-	while (*lstb)
+	if (*lstb)
 	{
-		tmp = (*lstb)->next;
+		tmp = (*lstb)->next != NULL ? (*lstb)->next : NULL;
 		intert_lst_front(lst, new_lst_nbr((*lstb)->data));
 		free(*lstb);
 		*lstb = NULL;

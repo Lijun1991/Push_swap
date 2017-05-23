@@ -44,6 +44,11 @@ int					ck_dup(char **argv);
 int					check_arg(char **argv);
 
 /*
+** checker_moves.c
+*/
+int					start_moves(char *line, t_plst **lst, t_plst **lstb);
+
+/*
 ** handle_data.c
 */
 void				get_location_sa(t_plst *lst, t_pinfo *info);
@@ -58,7 +63,6 @@ void				push_a(t_plst **lst, t_plst **lstb);
 void				intert_lst_front(t_plst **lst, t_plst *new);
 t_plst				*new_lst_nbr(int data);
 t_plst				*new_lst(char *s);
-void				print_lst(t_plst *lst);
 
 /*
 ** helper.c
@@ -73,7 +77,7 @@ void				deep_free(t_plst *lst);
 ** parse_arg.c
 */
 int					check_all_inorder(t_plst *lst);
-int					parse_arg(int argc, char **argv, t_plst **lst);
+int					parse_arg(char **argv, t_plst **lst);
 
 /*
 ** sort.c

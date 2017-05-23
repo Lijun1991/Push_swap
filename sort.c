@@ -93,7 +93,6 @@ void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	total = count_nbr(*lst);
 	info->steps = 0;
 	info->countb = 0;
-
 	core_sort(&total, info, lst, lstb);
 	if (total == 3)
 		do_sort_three(lst, info);

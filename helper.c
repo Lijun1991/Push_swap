@@ -92,5 +92,4 @@ void	deep_free(t_plst *lst)
 		free(lst);
 		lst = tmp;
 	}
-	free(lst);
 }
