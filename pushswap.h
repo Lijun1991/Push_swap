@@ -28,12 +28,11 @@ typedef struct		s_pinfo
 	int		diff_nbr;
 	int		diff_pos;
 
-	// int		top_nbr;
-	// int		last_nbr;
 	int		steps;
 	double	counta;
-
 	int		countb;
+
+	int		test_count;
 	// int		sa;
 	// int		at_middle;
 	// int		sa_loc;
@@ -42,7 +41,7 @@ typedef struct		s_pinfo
 }					t_pinfo;
 
 void				print_lst(t_plst *lst);
-
+void				get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info);
 
 /*
 ** check_arg.c
