@@ -24,6 +24,7 @@ typedef struct		s_plst
 
 typedef struct		s_pinfo
 {
+	int		pos;
 	int		if_top_part;
 	// int		if_top_part2;
 	// int		if_top_part3;
