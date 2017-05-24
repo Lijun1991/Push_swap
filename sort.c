@@ -208,9 +208,11 @@ void		get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info)
 	{
 		if (ft_abs(cur->data - nbr) == diff)
 		{
+			ft_printf("pos is---is %d\n", pos);
+			
 			if (cur->data < nbr)
 			{
-				ft_printf("pos is---is %d\n", pos);
+				
 				if (pos - 1 > info->countb / 2)
 				{
 					ft_printf("hah, pos - 1 is %d, info->countb / 2 is %d\n", pos - 1, info->countb / 2);
@@ -282,22 +284,22 @@ void	make_smallest_move(t_plst **lst, t_plst **lstb, t_pinfo *info)
 {
 	// int move;
 	int	move1;
-	int move2;
-	int move3;
+	// int move2;
+	// int move3;
 
 	// move = 0;
 	move1 = 0;
-	move2 = 0;
-	move3 = 0;
+	// move2 = 0;
+	// move3 = 0;
 	if (count_nbr(*lst) >= 3)
 	{
 		move1 = (*lst)->data;
-		move2 = (*lst)->next->data;
-		move3 = get_last_data(*lst);
+		// move2 = (*lst)->next->data;
+		// move3 = get_last_data(*lst);
 		// ft_printf("last data is %d\n", move3);
 		move1 = get_location(move1, *lstb, info);
-		move2 = get_location(move2, *lstb, info) + 1;
-		move3 = get_location(move3, *lstb, info) + 1;
+		// move2 = get_location(move2, *lstb, info) + 1;
+		// move3 = get_location(move3, *lstb, info) + 1;
 		if (move1 == 0 || move2 == 1 || move3 == 1)
 			ft_printf("something wrong\n");
 		info->for_move_step = compare(move1, move2, move3);
