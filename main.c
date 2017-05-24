@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 	print_lst(lst);//
 	ft_printf("\nb is: \n");//
 	print_lst(lstb);//
-
+	
+	ft_printf(GREE"total steps is %d\n"CLN, info.steps);
 	deep_free(lst);
 }

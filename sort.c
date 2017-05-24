@@ -173,89 +173,50 @@ void		do_sort_three_b(t_plst **lst, t_pinfo *info)
 // 	}
 // }
 
-int		get_up_data(t_plst *lstb, int	count)
-{
-	t_plst *cur;
+// int		get_up_data(t_plst *lstb, int	count)
+// {
+// 	t_plst *cur;
 
-	cur = lstb;
-	while (cur && count - 1 > 0)
-	{
-		count--;
-		cur = cur->next;
-	}
-	ft_printf("up data is %d\n", cur->data);
-	return (cur->data);
-}
+// 	cur = lstb;
+// 	while (cur && count - 1 > 0)
+// 	{
+// 		count--;
+// 		cur = cur->next;
+// 	}
+// 	ft_printf("up data is %d\n", cur->data);
+// 	return (cur->data);
+// }
 
 void		get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info)
 {
 	int pos;
 	t_plst *cur;
 
-	pos = 0;
+	pos = 1;
 	cur = lstb;
 	info->countb = count_nbr(lstb);
-	if (ft_abs(cur->data - nbr) == diff)
-	{
-		if (cur->data > nbr)
-		{
-			info->pos = 0;//pos == rotate_times== move_steps;
-			info->for_rotate = 0;
-			return ;
-		}
-	}
 	while (cur)
 	{
 		if (ft_abs(cur->data - nbr) == diff)
 		{
-			ft_printf("pos is---is %d\n", pos);
-			
-			if (cur->data < nbr)
-			{
-				
-				if (pos - 1 > info->countb / 2)
-				{
-					ft_printf("hah, pos - 1 is %d, info->countb / 2 is %d\n", pos - 1, info->countb / 2);
-					info->if_top_part = 1;
-					info->for_rotate = pos;
-					return (pos - 1);
-				}
-				else
-				{
-					info->for_rotate = pos;
-					return (info->countb - pos - 1);
-				}
-			}
-			else
-			{
-				ft_printf("2pos is is is %d\n", pos);
-				if (count > info->countb / 2)
-				{
-					ft_printf("h, count is %d, info->countb / 2 is %d\n", count, info->countb / 2);
-					info->if_top_part = 1;
-					info->for_rotate = count;
-					return (count - 1);
-				}
-				else
-				{
-					info->for_rotate = count;
-					return (info->countb - count - 1);
-				}
-			}
+			// ft_printf("pos is---is %d\n", pos);
+			info->diff_nbr = cur->data;
+			info->diff_pos = pos;
+			break ;
 		}
 		pos++;
 		cur = cur->next;
 	}
 }
 
-int		get_location(int nbr, t_plst *lstb, t_pinfo *info)
+int		get_location(int nbr, t_plst *lstb)
 {
 	int		tmp;
 	int		diff;
 	t_plst	*cur;
 
 	cur = lstb;
-	diff = cur->data - nbr;
+	diff = ft_abs(cur->data - nbr);
 	tmp = 0;
 	while (cur)
 	{
@@ -264,85 +225,98 @@ int		get_location(int nbr, t_plst *lstb, t_pinfo *info)
 			diff = tmp;
 		cur = cur->next;
 	}
-	ft_printf("diff is %d\n", diff);
-	return (get_diff_location(nbr, diff, lstb, info));
+	ft_printf("smallest diff is %d\n", diff);
+	return (diff);
 }
 
-int		compare(int move1, int move2, int move3)
+// int		compare(int move1, int move2, int move3)
+// {
+// 	int tmp;
+
+// 	tmp = move1;
+// 	if (tmp > move2)
+// 		tmp = move2;
+// 	if (tmp > move3)
+// 		tmp = move3;
+// 	return (tmp);
+// }
+
+void	do_rotate(int nbr, t_pinfo *info, t_plst **lstb)
 {
 	int tmp;
 
-	tmp = move1;
-	if (tmp > move2)
-		tmp = move2;
-	if (tmp > move3)
-		tmp = move3;
-	return (tmp);
+	tmp = 0;
+	info->countb = count_nbr(*lstb);
+	ft_printf("info->diff_pos is %d, info->countb / 2 is %d\n", info->diff_pos, info->countb / 2);
+	if (nbr > info->diff_nbr)
+		info->pos = info->diff_pos - 1;
+	else
+		info->pos = info->diff_pos;
+	if (info->pos <= info->countb / 2)
+	{
+		rotate(lstb, info->pos);
+		while (info->pos)
+		{
+			info->steps = info->steps + 1;
+			ft_printf("rb\n");
+			info->pos--;
+		}
+	}
+	else
+	{
+		tmp = info->countb - info->pos;
+		rotate(lstb, info->pos);
+		while (tmp)
+		{
+			info->steps = info->steps + 1;
+			ft_printf("rrb\n");
+			tmp--;	
+		}
+	}
 }
 
 void	make_smallest_move(t_plst **lst, t_plst **lstb, t_pinfo *info)
 {
-	// int move;
-	int	move1;
-	// int move2;
-	// int move3;
+	int	nbr;
+	t_plst *cur;
 
-	// move = 0;
-	move1 = 0;
-	// move2 = 0;
-	// move3 = 0;
-	if (count_nbr(*lst) >= 3)
-	{
-		move1 = (*lst)->data;
-		// move2 = (*lst)->next->data;
-		// move3 = get_last_data(*lst);
-		// ft_printf("last data is %d\n", move3);
-		move1 = get_location(move1, *lstb, info);
-		// move2 = get_location(move2, *lstb, info) + 1;
-		// move3 = get_location(move3, *lstb, info) + 1;
-		if (move1 == 0 || move2 == 1 || move3 == 1)
-			ft_printf("something wrong\n");
-		info->for_move_step = compare(move1, move2, move3);
-		if (info->for_move_step == move1)
-		{
-			info->if_top_part = 0;
-			info->for_rotate = 0;
-			info->for_move_step = get_location((*lst)->data, *lstb, info);
-			ft_printf("1if_top_part is %d, for_rotate is %d, info->for_move_step is %d\n", info->if_top_part, info->for_rotate, info->for_move_step);
-			info->steps = info->steps + info->for_move_step + 1;
-			while (info->for_move_step)
-			{
-				ft_printf("%s\n", info->if_top_part == 1 ? "rb" : "rrb");
-				info->for_move_step--;
-			}
-			rotate(lstb, info->for_rotate);
-			ft_printf("pb\n");
-			push_b(lst, lstb);
-		}
-		else if (info->for_move_step == move2)
-			ft_printf("2info->if_top_part is %d, info->for_rotate is %d, info->for_move_step is %d\n", info->if_top_part, info->for_rotate, info->for_move_step);
-		else if (info->for_move_step == move3)
-			ft_printf("3info->if_top_part is %d, info->for_rotate is %d, info->for_move_step is %d\n", info->if_top_part, info->for_rotate, info->for_move_step);
-	}
+	nbr = 0;
+	cur = *lst;
+	// while (cur)
+	// {
+		nbr = (*lst)->data;
+		get_diff_location(nbr, get_location(nbr, *lstb), *lstb, info);
+		do_rotate(nbr, info, lstb);
+		info->steps = info->steps + 1;
+		ft_printf("pb\n");
+		push_b(lst, lstb);
 
+		ft_printf("\na is: \n");//
+		print_lst(*lst);//
+		ft_printf("\nb is: \n");//
+		print_lst(*lstb);//
 
-
+	// 	cur = cur->next;
+	// }
 }
 
 void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 {
 	int total;
+	int	tmp;
 
 	total = 0;
+	tmp = 3;
 	total = count_nbr(*lst);
 	if (total > 3)
 	{
-		ft_printf("pb\n");
-		push_b(lst, lstb);
-		ft_printf("pb\n");
-		push_b(lst, lstb);
-		ft_printf("pb\n");
-		push_b(lst, lstb);
+		while (tmp)
+		{
+			info->steps = info->steps + 1;
+			ft_printf("pb\n");
+			push_b(lst, lstb);
+			tmp--;
+		}
 		do_sort_three_b(lstb, info);
 		make_smallest_move(lst, lstb, info);
 	}

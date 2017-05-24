@@ -43,24 +43,24 @@ int		get_last_data(t_plst *lst)
 	return (0);
 }
 
-int		get_smallest_a(t_plst *lst)
-{
-	t_plst	*cur;
-	int		sa;
+// int		get_smallest_a(t_plst *lst)
+// {
+// 	t_plst	*cur;
+// 	int		sa;
 
-	sa = lst->data;
-	if (lst->next)
-	{
-		cur = lst;
-		while (cur)
-		{
-			if (cur->data < sa)
-				sa = cur->data;
-			cur = cur->next;
-		}
-	}
-	return (sa);
-}
+// 	sa = lst->data;
+// 	if (lst->next)
+// 	{
+// 		cur = lst;
+// 		while (cur)
+// 		{
+// 			if (cur->data < sa)
+// 				sa = cur->data;
+// 			cur = cur->next;
+// 		}
+// 	}
+// 	return (sa);
+// }
 
 // int		get_location(t_plst *lst, int tmp_sa)
 // {

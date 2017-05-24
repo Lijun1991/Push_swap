@@ -25,26 +25,20 @@ typedef struct		s_plst
 typedef struct		s_pinfo
 {
 	int		pos;
-	int		if_top_part;
-	// int		if_top_part2;
-	// int		if_top_part3;
-	int		for_rotate;
-	// int		for_rotate2;
-	// int		for_rotate3;
-	int		for_move_step;
-	// int		for_move_step2;
-	// int		for_move_step3;
-	int		top_nbr;
-	int		last_nbr;
+	int		diff_nbr;
+	int		diff_pos;
+
+	// int		top_nbr;
+	// int		last_nbr;
 	int		steps;
 	double	counta;
 
 	int		countb;
-	int		sa;
-	int		at_middle;
-	int		sa_loc;
-	int		top;
-	int		times;
+	// int		sa;
+	// int		at_middle;
+	// int		sa_loc;
+	// int		top;
+	// int		times;
 }					t_pinfo;
 
 void				print_lst(t_plst *lst);

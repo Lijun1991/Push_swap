@@ -12,12 +12,12 @@
 
 #include "pushswap.h"
 
-void	get_location_sa(t_plst *lst, t_pinfo *info)
-{
-	info->counta = count_nbr(lst);
-	info->sa = get_smallest_a(lst);
-	info->times = get_times(lst, info);
-}
+// void	get_location_sa(t_plst *lst, t_pinfo *info)
+// {
+// 	info->counta = count_nbr(lst);
+// 	info->sa = get_smallest_a(lst);
+// 	info->times = get_times(lst, info);
+// }
 
 void	swap_data(t_plst *lst)
 {
