@@ -24,6 +24,10 @@ typedef struct		s_plst
 
 typedef struct		s_pinfo
 {
+	int		sign_ra;
+	int		sign_rra;
+	int		hold_test;
+
 	int		pos;
 	int		diff_nbr;
 	int		diff_pos;
