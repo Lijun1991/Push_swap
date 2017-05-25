@@ -364,7 +364,7 @@ void	make_smallest_move(t_plst **lst, t_plst **lstb, t_pinfo *info)
 
 	nbr = 0;
 	cur = *lst;
-	while (count_nbr(*lst))
+	while (count_nbr(*lst) - 10)
 	{
 		if (count_nbr(*lst) >= 2)
 		{
@@ -399,6 +399,22 @@ void	make_smallest_move(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	}
 }
 
+// void		bouble_sort_a(t_plst **lst)
+// {
+// 	if ((*lst)->data > (*lst)->next->data)
+// 	{
+// 		ft_printf("sa\n");
+// 		swap_data(*lst);
+// 		info->steps = info->steps + 1;
+// 	}
+// 	else
+// 	{
+// 		ft_printf("ra\n");
+// 		rotate(lst, 1);
+// 		info->steps = info->steps + 1;
+// 	}
+// }
+
 void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 {
 	int total;
@@ -407,7 +423,7 @@ void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	total = 0;
 	tmp = 3;
 	total = count_nbr(*lst);
-	if (total > 3)
+	if (total > 10)
 	{
 		while (tmp)
 		{
@@ -418,9 +434,14 @@ void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 		}
 		do_sort_three_b(lstb, info);
 		make_smallest_move(lst, lstb, info);
+		// bouble_sort_a(lst);
+		// can't stand buble sort, need to use previous sort for 10 or 15 in  a, then push b to a.
 	}
-	if (total <= 3)
+	if (total <= 10)
+	{
+		// do_sort_five(lst, info);
 		do_sort_three(lst, info);
+	}
 }
 
 
