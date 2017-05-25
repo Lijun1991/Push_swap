@@ -282,6 +282,16 @@ int		get_location(int nbr, t_plst *lstb)
 	return (diff);
 }
 
+int		get_last_mark(t_plst *lst)
+{
+	t_plst *cur;
+
+	cur = lst;
+	while (cur->next)
+		cur = cur->next;
+	return (cur->mark);
+}
+
 int		get_right_nbr(t_plst *lst, t_plst *lstb, t_pinfo *info)
 {
 	int nbr1;
@@ -299,28 +309,54 @@ int		get_right_nbr(t_plst *lst, t_plst *lstb, t_pinfo *info)
 
 	get_diff_location(nbr1, get_location(nbr1, lstb), lstb, info);
 	test_rotate(nbr1, info, lstb);
-	steps1 = info->test_count;
+	if (lst->mark == 1)
+		steps1 = info->test_count + 10000;
+	else
+		steps1 = info->test_count;
 	info->test_count = 0;
 
 	get_diff_location(nbr2, get_location(nbr2, lstb), lstb, info);
 	test_rotate(nbr2, info, lstb);
-	steps2 = info->test_count + 1;
+	if (lst->next->mark == 1)
+		steps2 = info->test_count + 1 + 10000;
+	else
+		steps2 = info->test_count + 1;
 	info->test_count = 0;
 
 	get_diff_location(nbr3, get_location(nbr3, lstb), lstb, info);
 	test_rotate(nbr3, info, lstb);
-	steps3 = info->test_count + 1;
+	if (get_last_mark(lst) == 1)
+		steps3 = info->test_count + 1 + 10000;
+	else
+		steps3 = info->test_count + 1;
 	info->test_count = 0;
 
 	ft_printf("steps1 is %d, steps2 is %d, steps3 is %d\n", steps1, steps2, steps3);
 	step = compare(steps1, steps2, steps3);
-	if (step == steps1)
-		return (lst->data);
-	else if (step == steps2)
-		return (lst->next->data);
-	else if (step == steps3)
-		return (get_last_data(lst));
-	return (0);
+	if (step == steps1 && step < 10000)
+	{
+		// if (lst->mark == 1)
+		// 	return (lst->data + 10000);
+		// else
+			return (lst->data);
+	}
+	else if (step == steps2 && step < 10000)
+	{
+		// if (lst->next->mark == 1)
+		// 	return (lst->next->data + 10000);
+		// else
+			return (lst->next->data);
+	}
+	else if (step == steps3 && step < 10000)
+	{
+		// if (get_last_mark(lst) == 1)
+		// 	return (get_last_data(lst) + 10000);
+		// else
+			return (get_last_data(lst));
+	}
+	else
+		return (-1);
+	// return (0);
 }
 
 
@@ -439,16 +475,24 @@ void	do_rotate_in_a(int nbr, t_pinfo *info, t_plst **lst)
 void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info)
 {
 	int	nbr;
-	t_plst *cur;
-	int	tmp = 0;
+	// t_plst *cur;
+	int	tmp = 21;
 
 	nbr = 0;
-	cur = *lst;
-	while (count_nbr(*lst) - 20)//.....................................20 /10
+	while (count_nbr(*lst) - 20 >= 0)//.....................................20 /10
 	{
 		if (count_nbr(*lst) >= 2)
 		{
 			nbr = get_right_nbr(*lst, *lstb, info);
+			while (nbr == -1 && tmp)
+			{
+				ft_printf("ra\nra\nra\n");
+				rotate(lst, 3);
+				info->steps = info->steps + 3;
+				nbr = get_right_nbr(*lst, *lstb, info);
+				tmp--;
+			}
+			// nbr = get_right_nbr(*lst, *lstb, info);
 			if (nbr == (*lst)->next->data)
 			{
 				ft_printf("ra\n");
@@ -462,6 +506,9 @@ void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info)
 				info->steps = info->steps + 1;
 			}
 		}
+		ft_printf("hhhhhhhhaaaaa\n");
+		print_lst(*lst);
+		ft_printf("hhhhhhhhaaaaa\n");
 		nbr = (*lst)->data;//.......................somgthing wrong here
 		ft_printf("nbr is ---------------- %d, tmp is %d\n", nbr, tmp);
 		get_diff_location(nbr, get_location(nbr, *lstb), *lstb, info);
@@ -475,11 +522,11 @@ void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info)
 		ft_printf("\nb is: \n");//
 		print_lst(*lstb);//
 
-		tmp++;
+		
 	}
 }
 
-int		find_biggist_pos(t_plst *lstb)
+int		find_biggist_nbr(t_plst *lstb)
 {
 	t_plst	*cur;
 	int		ba;
@@ -496,14 +543,14 @@ int		find_biggist_pos(t_plst *lstb)
 		}
 	}
 	ft_printf("biggist nbr in b s %d\n", ba);
-	return (get_location_helper(lstb, ba));
+	return (ba);
 }
 
 void	rotate_b(t_plst **lstb, t_pinfo *info)
 {
 	int pos;
 
-	pos = find_biggist_pos(*lstb);
+	pos = get_location_helper(*lstb, find_biggist_nbr(*lstb));
 	ft_printf("biggist nbr in b pos is %d\n", pos);
 	if (pos <= count_nbr(*lstb) / 2)
 	{
@@ -527,34 +574,99 @@ void	rotate_b(t_plst **lstb, t_pinfo *info)
 	}
 }
 
+int		find_bigg_nbr_nomark(t_plst *lst)
+{
+	t_plst	*cur;
+	int		ba;
+
+	ba = get_smallest_a(lst);
+	if (lst->next)
+	{
+		cur = lst;
+		while (cur)
+		{
+			if (cur->data > ba && cur->mark != 1)
+				ba = cur->data;
+			cur = cur->next;
+		}
+	}
+	ft_printf("biggist nbr no mark in a is %d\n", ba);
+	return (ba);
+}
+
+void		mark_twenty_bigg_nbr(t_plst *lst)
+{
+	int big;
+	int	count;
+	t_plst *cur;
+
+	count = 20;
+	while (count)
+	{
+		big = find_bigg_nbr_nomark(lst);
+		if (lst->next)
+		{
+			cur = lst;
+			while (cur)
+			{
+				if (cur->data == big)
+					cur->mark = 1;
+				cur = cur->next;
+			}
+		}
+		count--;
+	}
+}
+
+
+void		push_three_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info)
+{
+	int tmp;
+	// t_plst *cur;
+
+	tmp = 3;
+	// cur = *lst;
+	while (tmp && *lst)
+	{
+		if ((*lst)->mark != 1)
+		{
+			ft_printf("pb\n");
+			push_b(lst, lstb);
+			info->steps = info->steps + 1;
+			tmp--;
+		}
+		else
+		{
+			ft_printf("ra\n");
+			rotate(lst, 1);
+			info->steps = info->steps + 1;
+		}
+	}
+	do_sort_three_b(lstb, info);
+}
+
 void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 {
 	int total;
-	int	tmp;
+	// int	tmp;
 
 	total = 0;
-	tmp = 3;
+	// tmp = 3;
 	total = count_nbr(*lst);
+	mark_twenty_bigg_nbr(*lst);
 	if (total > 20)//..............................................
 	{
-		while (tmp)
-		{
-			info->steps = info->steps + 1;
-			ft_printf("pb\n");
-			push_b(lst, lstb);
-			tmp--;
-		}
-		do_sort_three_b(lstb, info);
+		push_three_to_b(lst, lstb, info);
 		make_smallest_move_to_b(lst, lstb, info);//don't move 10 biggiest nbrs
 		do_sort_ten(info, lst, lstb);//sort the biggist 10 nbrs
 		rotate_b(lstb, info);
 		// make_smallest_move_to_a(lstb, lst, info);
 	}
-	if (total <= 20 && total > 3)//.......................................
+	else if (total <= 20 && total > 3)//.......................................
 		do_sort_ten(info, lst, lstb);
-	if (total == 3)
+	else if (total == 3)
 		do_sort_three(lst, info);
-	if (total == 2)
+	else if (total == 2)
 		if ((*lst)->next->data < (*lst)->data)
 		{
 			ft_printf("sa\n");

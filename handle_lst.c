@@ -18,6 +18,7 @@ t_plst	*new_lst(char *s)
 
 	new = malloc(sizeof(t_plst));
 	new->data = ft_atoi(s);
+	new->mark = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -28,6 +29,7 @@ t_plst	*new_lst_nbr(int data)
 
 	new = malloc(sizeof(t_plst));
 	new->data = data;
+	new->mark = 0;
 	new->next = NULL;
 	return (new);
 }
