@@ -18,7 +18,7 @@
 typedef struct		s_plst
 {
 	int				data;
-	int				group;
+	int				mark;
 	struct s_plst	*next;
 }					t_plst;
 
@@ -33,15 +33,16 @@ typedef struct		s_pinfo
 	int		countb;
 
 	int		test_count;
-	// int		sa;
-	// int		at_middle;
-	// int		sa_loc;
-	// int		top;
-	// int		times;
+	int		sa;
+	int		at_middle;
+	int		sa_loc;
+	int		top;
+	int		times;
 }					t_pinfo;
 
 void				print_lst(t_plst *lst);
 void				get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info);
+int		get_location_helper(t_plst *lst, int tmp_sa);
 
 /*
 ** check_arg.c

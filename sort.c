@@ -119,40 +119,50 @@ void		do_sort_three_b(t_plst **lst, t_pinfo *info)
 	}
 }
 
-// static void	core_sort(int *total, t_pinfo *info, t_plst **lst, t_plst **lstb)
-// {
-// 	while (*total - 3 > 0)
-// 	{
-// 		info->top = 0;
-// 		get_location_sa(*lst, info);
-// 		info->steps = info->steps + info->times + 1;
-// 		while (info->times)
-// 		{
-// 			ft_printf("%s\n", info->top == 1 ? "ra" : "rra");
-// 			info->times--;
-// 		}
-// 		rotate(lst, info->sa_loc);
-// 		ft_printf("pb\n");
-// 		push_b(lst, lstb);
-// 		// if (info->at_middle == 2)
-// 		// {
-// 		// 	ft_printf("sb\n");
-// 		// 	swap_data(*lstb);
-// 		// 	info->at_middle = 0;
-// 		// 	info->steps = info->steps + 1;
-// 		// }
-// 		(*total)--;
-// 	}
-// }
+void	do_sort_ten(t_pinfo *info, t_plst **lst, t_plst **lstb)
+{
+	int total;
+
+	total = count_nbr(*lst);
+	while (total)
+	{
+		info->top = 0;
+		get_location_sa(*lst, info);
+		info->steps = info->steps + info->times + 1;
+		while (info->times)
+		{
+			ft_printf("%s\n", info->top == 1 ? "ra" : "rra");
+			info->times--;
+		}
+		rotate(lst, info->sa_loc);
+		ft_printf("pb\n");
+		push_b(lst, lstb);
+		if (info->at_middle == 2)
+		{
+			ft_printf("sb\n");
+			swap_data(*lstb);
+			info->at_middle = 0;
+			info->steps = info->steps + 1;
+		}
+		total--;
+	}
+	total = 20;//........................................................
+	while (total)
+	{
+		ft_printf("pa\n");
+		push_a(lst, lstb);
+		total--;
+	}
+}
 
 // void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 // {
-// 	int	total;
+// 	// int	total;
 
-// 	total = 0;
-// 	total = count_nbr(*lst);
-// 	info->steps = 0;
-// 	info->countb = 0;
+// 	// total = 0;
+// 	// total = count_nbr(*lst);
+// 	// info->steps = 0;
+// 	// info->countb = 0;
 // 	core_sort(&total, info, lst, lstb);
 // 	if (total == 3)
 // 		do_sort_three(lst, info);
@@ -165,12 +175,7 @@ void		do_sort_three_b(t_plst **lst, t_pinfo *info)
 // 		}
 // 	info->countb = count_nbr(*lstb);
 // 	info->steps = info->steps + info->countb;
-// 	while (info->countb)
-// 	{
-// 		ft_printf("pa\n");
-// 		push_a(lst, lstb);
-// 		info->countb--;
-// 	}
+
 // }
 
 // int		get_up_data(t_plst *lstb, int	count)
@@ -355,8 +360,83 @@ void	do_rotate(int nbr, t_pinfo *info, t_plst **lstb)
 
 
 
+void	do_rotate_in_a(int nbr, t_pinfo *info, t_plst **lst)
+{
+	int tmp;
 
-void	make_smallest_move(t_plst **lst, t_plst **lstb, t_pinfo *info)
+	tmp = 0;
+	info->counta = count_nbr(*lst);
+	ft_printf("info->diff_pos is %d, info->counta / 2 is %d\n", info->diff_pos, info->counta / 2);
+	if (nbr > info->diff_nbr)
+		info->pos = info->diff_pos - 1;
+	else
+		info->pos = info->diff_pos;
+	if (info->pos <= info->counta / 2)
+	{
+		rotate(lst, info->pos);
+		while (info->pos)
+		{
+			info->steps = info->steps + 1;
+			ft_printf("ra\n");
+			info->pos--;
+		}
+	}
+	else
+	{
+		tmp = info->counta - info->pos;
+		rotate(lst, info->pos);
+		while (tmp)
+		{
+			info->steps = info->steps + 1;
+			ft_printf("rra\n");
+			tmp--;	
+		}
+	}
+}
+
+// void	make_smallest_move_to_a(t_plst **lstb, t_plst **lst, t_pinfo *info)
+// {
+// 	int	nbr;
+// 	// t_plst *cur;
+// 	// int	tmp = 0;
+
+// 	nbr = 0;
+// 	// cur = *lst;
+// 	// tmp = count_nbr(*lst);
+// 	while (count_nbr(*lstb))
+// 	{
+// 		if (count_nbr(*lstb) >= 2)
+// 		{
+// 			nbr = get_right_nbr(*lstb, *lst, info);
+// 			if (nbr == (*lst)->next->data)
+// 			{
+// 				ft_printf("rb\n");
+// 				rotate(lstb, 1);
+// 				info->steps = info->steps + 1;
+// 			}
+// 			if (nbr == get_last_data(*lst))
+// 			{
+// 				ft_printf("rrb\n");
+// 				rotate(lstb, count_nbr(*lst) - 1);
+// 				info->steps = info->steps + 1;
+// 			}
+// 		}
+// 		nbr = (*lstb)->data;
+// 		// ft_printf("nbr is ---------------- %d, tmp is %d\n", nbr, tmp);
+// 		get_diff_location(nbr, get_location(nbr, *lst), *lst, info);
+// 		do_rotate_in_a(nbr, info, lst);
+// 		info->steps = info->steps + 1;
+// 		ft_printf("pa\n");
+// 		push_a(lst, lstb);
+
+// 		ft_printf("\na is: \n");//
+// 		print_lst(*lst);//
+// 		ft_printf("\nb is: \n");//
+// 		print_lst(*lstb);//
+// 	}
+// }
+
+void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info)
 {
 	int	nbr;
 	t_plst *cur;
@@ -364,7 +444,7 @@ void	make_smallest_move(t_plst **lst, t_plst **lstb, t_pinfo *info)
 
 	nbr = 0;
 	cur = *lst;
-	while (count_nbr(*lst) - 10)
+	while (count_nbr(*lst) - 20)//.....................................20 /10
 	{
 		if (count_nbr(*lst) >= 2)
 		{
@@ -382,7 +462,7 @@ void	make_smallest_move(t_plst **lst, t_plst **lstb, t_pinfo *info)
 				info->steps = info->steps + 1;
 			}
 		}
-		nbr = (*lst)->data;
+		nbr = (*lst)->data;//.......................somgthing wrong here
 		ft_printf("nbr is ---------------- %d, tmp is %d\n", nbr, tmp);
 		get_diff_location(nbr, get_location(nbr, *lstb), *lstb, info);
 		do_rotate(nbr, info, lstb);
@@ -399,21 +479,53 @@ void	make_smallest_move(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	}
 }
 
-// void		bouble_sort_a(t_plst **lst)
-// {
-// 	if ((*lst)->data > (*lst)->next->data)
-// 	{
-// 		ft_printf("sa\n");
-// 		swap_data(*lst);
-// 		info->steps = info->steps + 1;
-// 	}
-// 	else
-// 	{
-// 		ft_printf("ra\n");
-// 		rotate(lst, 1);
-// 		info->steps = info->steps + 1;
-// 	}
-// }
+int		find_biggist_pos(t_plst *lstb)
+{
+	t_plst	*cur;
+	int		ba;
+
+	ba = lstb->data;
+	if (lstb->next)
+	{
+		cur = lstb;
+		while (cur)
+		{
+			if (cur->data > ba)
+				ba = cur->data;
+			cur = cur->next;
+		}
+	}
+	ft_printf("biggist nbr in b s %d\n", ba);
+	return (get_location_helper(lstb, ba));
+}
+
+void	rotate_b(t_plst **lstb, t_pinfo *info)
+{
+	int pos;
+
+	pos = find_biggist_pos(*lstb);
+	ft_printf("biggist nbr in b pos is %d\n", pos);
+	if (pos <= count_nbr(*lstb) / 2)
+	{
+		rotate(lstb, pos);
+		while (pos)
+		{
+			ft_printf("rb\n");
+			info->steps = info->steps + 1;
+			pos--;
+		}
+	}
+	else
+	{
+		rotate(lstb, pos);
+		while (pos)
+		{
+			ft_printf("rrb\n");
+			info->steps = info->steps + 1;
+			pos--;
+		}
+	}
+}
 
 void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 {
@@ -423,7 +535,7 @@ void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	total = 0;
 	tmp = 3;
 	total = count_nbr(*lst);
-	if (total > 10)
+	if (total > 20)//..............................................
 	{
 		while (tmp)
 		{
@@ -433,19 +545,23 @@ void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info)
 			tmp--;
 		}
 		do_sort_three_b(lstb, info);
-		make_smallest_move(lst, lstb, info);
-		// bouble_sort_a(lst);
-		// can't stand buble sort, need to use previous sort for 10 or 15 in  a, then push b to a.
+		make_smallest_move_to_b(lst, lstb, info);//don't move 10 biggiest nbrs
+		do_sort_ten(info, lst, lstb);//sort the biggist 10 nbrs
+		rotate_b(lstb, info);
+		// make_smallest_move_to_a(lstb, lst, info);
 	}
-	if (total <= 10)
-	{
-		// do_sort_five(lst, info);
+	if (total <= 20 && total > 3)//.......................................
+		do_sort_ten(info, lst, lstb);
+	if (total == 3)
 		do_sort_three(lst, info);
-	}
+	if (total == 2)
+		if ((*lst)->next->data < (*lst)->data)
+		{
+			ft_printf("sa\n");
+			swap_data(*lst);
+			info->steps = info->steps + 1;
+		}
 }
-
-
-
 
 
 
