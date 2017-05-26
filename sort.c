@@ -455,9 +455,9 @@ int		test_other_nbr(int *nbr, t_plst **lst, t_plst **lstb, t_pinfo *info)
 	tmp = count_nbr(*lst) / 3;
 	while (*nbr == -1 && tmp > 0)
 	{
-		// ft_printf("ra\n");
-		// rotate(lst, 1);
-		// info->steps = info->steps + 1;
+		ft_printf("ra\n");
+		rotate(lst, 1);
+		info->steps = info->steps + 1;
 		*nbr = get_right_nbr(*lst, *lstb, info);
 		count++;
 		if (*nbr != -1)
@@ -467,16 +467,16 @@ int		test_other_nbr(int *nbr, t_plst **lst, t_plst **lstb, t_pinfo *info)
 	return (-1);
 }
 
-void	do_other_nbr(int test, t_plst **lst, t_pinfo *info)
-{
-	while (test)
-	{
-		ft_printf("ra\n");
-		rotate(lst, 1);
-		info->steps = info->steps + 1;
-		test--;
-	}
-}
+// void	do_other_nbr(int test, t_plst **lst, t_pinfo *info)
+// {
+// 	while (test)
+// 	{
+// 		ft_printf("ra\n");
+// 		rotate(lst, 1);
+// 		info->steps = info->steps + 1;
+// 		test--;
+// 	}
+// }
 
 void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info)
 {
@@ -492,13 +492,14 @@ void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info)
 		{
 			nbr = get_right_nbr(*lst, *lstb, info);
 			test = test_other_nbr(&nbr, lst, lstb, info);
-			if (test < 15 && test != -1)
-				do_other_nbr(test, lst, info);
-			else
-				nbr = info->hold_test;
-			// if (nbr == -1)
-			// 	nbr = (*lst)->data;
+			// if (test < 15 && test != -1)
+				// do_other_nbr(test, lst, info);
+			// else
+			// 	nbr = info->hold_test;
+			if (nbr == -1)
+				nbr = (*lst)->data;
 			ft_printf("the nbr is %d\n", nbr);
+
 
 			if (nbr == (*lst)->next->data)
 			{
@@ -533,7 +534,7 @@ void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info)
 		ft_printf("\nb is: \n");//
 		print_lst(*lstb);//
 
-		
+		ft_printf("steps is ............ is %d\n", info->steps);
 	}
 }
 
@@ -666,6 +667,7 @@ void	rotate_b(t_plst **lstb, t_pinfo *info)
 			tmp--;
 		}
 	}
+	ft_printf("11steps is ............ is %d\n", info->steps);
 }
 
 int		find_bigg_nbr_nomark(t_plst *lst)
