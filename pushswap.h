@@ -24,11 +24,13 @@ typedef struct		s_plst
 
 typedef struct		s_pinfo
 {
-	int		sign_ra;
-	int		sign_rra;
-	int		hold_test;
+	int		sign_rr;
+	int		sign_rrr;
+	int		rotate_a;///
+	int		f_rotate_a;
 
-	int		pos;
+	int		pos;///
+	int		f_pos;
 	int		diff_nbr;
 	int		diff_pos;
 
@@ -46,7 +48,21 @@ typedef struct		s_pinfo
 
 void				print_lst(t_plst *lst);
 void				get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info);
-int		get_location_helper(t_plst *lst, int tmp_sa);
+int					get_location_helper(t_plst *lst, int tmp_sa);
+
+/*
+** check_arg.c
+*/
+void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info);
+int		get_right_nbr(t_plst *lst, t_plst *lstb, t_pinfo *info);
+void		get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info);
+int		get_location(int nbr, t_plst *lstb);
+void	do_rotate_a(t_pinfo *info, t_plst **lst);
+
+/*
+** sort.c
+*/
+void		do_sort(t_plst **lst, t_plst **lstb, t_pinfo *info);
 
 /*
 ** check_arg.c

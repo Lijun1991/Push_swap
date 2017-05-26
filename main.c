@@ -32,16 +32,16 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
-	ft_printf("original: \n");//
-	print_lst(lst);//
+	// ft_printf("original: \n");//
+	// print_lst(lst);//
 
 	if (!(check_all_inorder(lst)))
 		do_sort(&lst, &lstb, &info);
 
-	ft_printf("\na is: \n");//
-	print_lst(lst);//
-	ft_printf("\nb is: \n");//
-	print_lst(lstb);//
+	// ft_printf("\na is: \n");//
+	// print_lst(lst);//
+	// ft_printf("\nb is: \n");//
+	// print_lst(lstb);//
 	
 	// ft_printf("steps is ............ is %d\n", info.steps);
 	ft_printf(GREE"total steps is %d\n"CLN, info.steps);
