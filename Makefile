@@ -14,10 +14,10 @@ NAME = push_swap
 NAME1 = checker
 
 SRC = main.c parse_arg.c handle_lst.c handle_data.c helper.c move_to_b.c \
-sort_helper.c check_arg.c sort.c
+sort_helper.c check_arg.c sort.c small_sort.c 
 
 SRC1 = checker.c parse_arg.c handle_lst.c handle_data.c helper.c sort.c \
-sort_helper.c check_arg.c checker_moves.c move_to_b.c
+sort_helper.c check_arg.c checker_moves.c move_to_b.c small_sort.c 
 
 OBJ = $(SRC:.c=.o)
 

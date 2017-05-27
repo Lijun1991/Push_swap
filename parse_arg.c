@@ -47,18 +47,68 @@ int		get_len(char **av)
 	return (i);
 }
 
-int		parse_arg(char **argv, t_plst **lst)
+
+int		check_flag(char *s, t_pinfo *info, int *j)
+{
+	if (s[1] == 'v' && s[2] == '\0' && !ft_strchr(info->flag, 'v'))
+		info->flag[(*j)++] = 'v';
+	else if (s[1] == 'c' && s[2] == '\0' && !ft_strchr(info->flag, 'c'))
+		info->flag[(*j)++] = 'c';
+	else if (s[1] == 'o' && s[2] == '\0' && !ft_strchr(info->flag, 'o'))
+		info->flag[(*j)++] = 'o';
+	else if (s[1] == 'n' && s[2] == '\0' && !ft_strchr(info->flag, 'n'))
+		info->flag[(*j)++] = 'n';
+	else if (s[1] == 's' && s[2] == '\0' && !ft_strchr(info->flag, 's'))
+		info->flag[(*j)++] = 's';
+	else
+		return (1);
+	return (0);
+}
+
+char	**get_flag(int argc, char **argv, t_pinfo *info)
+{
+	int i;
+	int j;
+
+	i = 1;
+	j = 0;
+	while (i < argc)
+	{
+		if (argv[i][0] == '-')
+		{
+			if (ft_isdigit(argv[i][1]))
+				break ;
+			if (check_flag(argv[i], info, &j))
+				break;
+		}
+		else
+			break ;
+		i++;
+	}
+	while (i-- > 1)
+		argv++;
+	// ft_printf("flag is %s\n", info->flag);
+	// ft_printf("real argv start at is %s\n", argv[i]);
+	return (argv);
+}
+
+
+
+int		parse_arg(int argc, char **argv, t_plst **lst, t_pinfo *info)
 {
 	int		len;
+	char	**av;
 
 	len = 0;
-	if (check_arg(argv))
+	av = get_flag(argc, argv, info);
+	if (check_arg(av))
 		return (1);
-	while (argv[len])
+	while (av[len])
 		len++;
+
 	while (len - 1)
 	{
-		intert_lst_front(lst, new_lst(argv[len - 1]));
+		intert_lst_front(lst, new_lst(av[len - 1]));
 		len--;
 	}
 	return (0);

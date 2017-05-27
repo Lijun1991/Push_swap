@@ -40,12 +40,13 @@ int			main(int argc, char **argv)
 	t_plst	*lst;
 	t_plst	*lstb;
 	char	*line;
+	t_pinfo	info;
 
 	if (argc < 2)
 		return (0);
 	lst = NULL;
 	lstb = NULL;
-	if (parse_arg(argv, &lst))
+	if (parse_arg(argc, argv, &lst, &info))
 	{
 		ft_fprintf(2, "Arg Error\n");
 		return (1);

@@ -54,45 +54,31 @@ void		get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info)
 	}
 }
 
-static void	test_rotate(int nbr, t_pinfo *info, t_plst *lstb, int count)
+static void	test_rotate(int nbr, t_pinfo *info, int count)
 {
 	int tmp;
+	int tmp1;
 
 	tmp = 0;
-	info->countb = count_nbr(lstb);
+	tmp1 = 0;
 	// ft_printf("info->diff_pos is %d, info->countb / 2 is %d\n", info->diff_pos, info->countb / 2);
 	if (nbr > info->diff_nbr)
 		info->pos = info->diff_pos - 1;
 	else
 		info->pos = info->diff_pos;
-	if (info->pos <= info->countb / 2)
-	{
-		// if (info->sign_ra)
-		// 	info->test_count = info->pos - 1;
-		// else
+
+	if (info->pos <= info->countb / 2 && count <= info->counta / 2)
 		info->test_count = info->pos + count;
-		// while (info->pos)
-		// {
-		// 	info->steps = info->steps + 1;
-		// 	ft_printf("rb\n");
-		// 	info->pos--;
-		// }
-	}
-	else
+	else if (info->pos > info->countb / 2 && count > info->counta / 2)
 	{
 		tmp = info->countb - info->pos;
-		// rotate(lstb, info->pos);
-		// if (info->sign_rra)
-		// 	info->test_count = tmp - 1;
-		// else
-		info->test_count = tmp + count;
-		// while (tmp)
-		// {
-		// 	info->steps = info->steps + 1;
-		// 	ft_printf("rrb\n");
-		// 	tmp--;	
-		// }
+		tmp1 = info->counta - count;
+		info->test_count = tmp + tmp1;
 	}
+	else if (info->pos <= info->countb / 2 && count > info->counta / 2)
+		info->test_count = info->pos + info->counta - count;
+	else if (info->pos > info->countb / 2 && count <= info->counta / 2)
+		info->test_count = info->countb - info->pos + count;
 }
 
 void	do_rotate_a(t_pinfo *info, t_plst **lst)
@@ -257,7 +243,9 @@ int		get_right_nbr(t_plst *lst, t_plst *lstb, t_pinfo *info)
 	while (cur)
 	{
 		get_diff_location(cur->data, get_location(cur->data, lstb), lstb, info);
-		test_rotate(cur->data, info, lstb, count);
+		info->counta = count_nbr(lst);
+		info->countb = count_nbr(lstb);
+		test_rotate(cur->data, info, count);
 		step = step > info->test_count ? info->test_count : step;
 		// ft_printf("step is %d, count is %d, cur->data is %d\n", step, count, cur->data);
 		count++;
@@ -270,7 +258,7 @@ int		get_right_nbr(t_plst *lst, t_plst *lstb, t_pinfo *info)
 		get_diff_location(cur1->data, get_location(cur1->data, lstb), lstb, info);
 		info->rotate_a = count;
 		// ft_printf("info->rotate_a is %d\n", info->rotate_a);
-		test_rotate(cur1->data, info, lstb, count);
+		test_rotate(cur1->data, info, count);
 		if (info->test_count == step)
 			return (cur1->data);
 		count++;
@@ -311,11 +299,12 @@ void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info)
 		info->sign_rr = 0;
 		info->sign_rrr = 0;
 
-		// ft_printf("\na is: \n");//
-		// print_lst(*lst);//
-		// ft_printf("\nb is: \n");//
-		// print_lst(*lstb);//
-
-		// ft_printf("steps is ............ is %d\n", info->steps);
+		if (ft_strchr(info->flag, 'v'))
+		{
+			ft_printf("\na is: \n");
+			print_lst(*lst);
+			ft_printf("\nb is: \n");
+			print_lst(*lstb);
+		}
 	}
 }

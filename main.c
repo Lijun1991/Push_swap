@@ -26,24 +26,34 @@ int	main(int argc, char **argv)
 	lst = NULL;
 	lstb = NULL;
 	ft_memset(&info, 0, sizeof(t_pinfo));
-	if (parse_arg(argv, &lst))
+	if (parse_arg(argc, argv, &lst, &info))
 	{
 		ft_fprintf(2, "Arg Error\n");
 		return (1);
 	}
 
-	// ft_printf("original: \n");//
-	// print_lst(lst);//
+	if (ft_strchr(info.flag, 'o'))
+	{
+		ft_printf("original stack: \n");
+		ft_printf("\na is: \n");
+		print_lst(lst);
+		ft_printf("\nb is: \n");
+		print_lst(lstb);
+	}
 
 	if (!(check_all_inorder(lst)))
 		do_sort(&lst, &lstb, &info);
 
-	// ft_printf("\na is: \n");//
-	// print_lst(lst);//
-	// ft_printf("\nb is: \n");//
-	// print_lst(lstb);//
+	if (ft_strchr(info.flag, 'n'))
+	{
+		ft_printf("\nthe end stack is: \n");
+		ft_printf("\na is: \n");
+		print_lst(lst);
+		ft_printf("\nb is: \n");
+		print_lst(lstb);
+	}
 	
-	// ft_printf("steps is ............ is %d\n", info.steps);
-	ft_printf(GREE"total steps is %d\n"CLN, info.steps);
+	if (ft_strchr(info.flag, 's'))
+		ft_printf(GREE"total steps is %d\n"CLN, info.steps);
 	deep_free(lst);
 }

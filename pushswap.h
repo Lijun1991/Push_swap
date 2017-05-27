@@ -14,6 +14,11 @@
 # define PUSHSWAP_H
 
 # include "libft.h"
+# define FLAG_V 1
+# define FLAG_C 2
+# define FLAG_O 4
+# define FLAG_N 8
+# define FLAG_S 16
 
 typedef struct		s_plst
 {
@@ -24,6 +29,8 @@ typedef struct		s_plst
 
 typedef struct		s_pinfo
 {
+	// int		flag;
+	char	flag[6];
 	int		sign_rr;
 	int		sign_rrr;
 	int		rotate_a;///
@@ -49,6 +56,13 @@ typedef struct		s_pinfo
 void				print_lst(t_plst *lst);
 void				get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info);
 int					get_location_helper(t_plst *lst, int tmp_sa);
+
+/*
+** small_sort.c
+*/
+void		sort_two_in_a(t_plst *lst, t_pinfo *info);
+void		sort_two_in_b(t_plst *lstb, t_pinfo *info);
+void	do_sort_five(t_pinfo *info, t_plst **lst, t_plst **lstb);
 
 /*
 ** check_arg.c
@@ -107,7 +121,7 @@ void				deep_free(t_plst *lst);
 ** parse_arg.c
 */
 int					check_all_inorder(t_plst *lst);
-int					parse_arg(char **argv, t_plst **lst);
+int		parse_arg(int argc, char **argv, t_plst **lst, t_pinfo *info);
 
 /*
 ** sort.c
