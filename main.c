@@ -34,7 +34,8 @@ int	main(int argc, char **argv)
 
 	if (ft_strchr(info.flag, 'o'))
 	{
-		ft_printf("original stack: \n");
+		ft_printf(ft_strchr(info.flag, 'c') ? GREE"original stack: \n"CLN : "original stack: \n");
+		// ft_printf("original stack: \n");
 		ft_printf("\na is: \n");
 		print_lst(lst);
 		ft_printf("\nb is: \n");
@@ -46,7 +47,8 @@ int	main(int argc, char **argv)
 
 	if (ft_strchr(info.flag, 'n'))
 	{
-		ft_printf("\nthe end stack is: \n");
+		ft_printf(ft_strchr(info.flag, 'c') ? GREE"\nthe end stack is: \n"CLN : "\nthe end stack is: \n");
+		// ft_printf("\nthe end stack is: \n");
 		ft_printf("\na is: \n");
 		print_lst(lst);
 		ft_printf("\nb is: \n");
@@ -54,6 +56,7 @@ int	main(int argc, char **argv)
 	}
 	
 	if (ft_strchr(info.flag, 's'))
-		ft_printf(GREE"total steps is %d\n"CLN, info.steps);
+		ft_printf(ft_strchr(info.flag, 'c') ? GREE"total: %d\n"CLN : "total: %d\n", info.steps);
+		// ft_printf(GREE"total: %d\n"CLN, info.steps);
 	deep_free(lst);
 }

@@ -59,8 +59,8 @@ int			main(int argc, char **argv)
 		line = NULL;
 	}
 	if (!check_all_inorder(lst) || lstb)
-		ft_printf(RED"KO\n"CLN);
+		ft_printf(ft_strchr(info.flag, 'c') ? RED"KO\n"CLN : "KO\n");
 	else
-		ft_printf(GREE"OK\n"CLN);
+		ft_printf(ft_strchr(info.flag, 'c') ? GREE"OK\n"CLN : "OK\n");
 	free_everything(lst, lstb, line);
 }

@@ -14,11 +14,6 @@
 # define PUSHSWAP_H
 
 # include "libft.h"
-# define FLAG_V 1
-# define FLAG_C 2
-# define FLAG_O 4
-# define FLAG_N 8
-# define FLAG_S 16
 
 typedef struct		s_plst
 {
@@ -29,7 +24,6 @@ typedef struct		s_plst
 
 typedef struct		s_pinfo
 {
-	// int		flag;
 	char	flag[6];
 	int		sign_rr;
 	int		sign_rrr;

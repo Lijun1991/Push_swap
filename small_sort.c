@@ -24,11 +24,14 @@ void		sort_two_in_a(t_plst *lst, t_pinfo *info)
 
 void		sort_two_in_b(t_plst *lstb, t_pinfo *info)
 {
-	if (lstb->next->data > lstb->data)
+	if (lstb->next)
 	{
-		ft_printf("sa\n");
-		swap_data(lstb);
-		info->steps = info->steps + 1;
+		if (lstb->next->data > lstb->data)
+		{
+			ft_printf("sa\n");
+			swap_data(lstb);
+			info->steps = info->steps + 1;
+		}
 	}
 }
 
