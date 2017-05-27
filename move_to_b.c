@@ -14,25 +14,24 @@
 
 int		get_location(int nbr, t_plst *lstb)
 {
-	int		tmp;
-	int		diff;
+	long	tmp;
+	long	diff;
 	t_plst	*cur;
 
 	cur = lstb;
-	diff = ft_abs(cur->data - nbr);
+	diff = (long)ft_abs((long)cur->data - (long)nbr);
 	tmp = 0;
 	while (cur)
 	{
-		tmp = ft_abs(cur->data - nbr);
+		tmp = (long)ft_abs((long)cur->data - (long)nbr);
 		if (tmp < diff)
 			diff = tmp;
 		cur = cur->next;
 	}
-	// ft_printf("smallest diff is %d\n", diff);
 	return (diff);
 }
 
-void		get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info)
+void		get_diff_location(int nbr, long diff, t_plst *lstb, t_pinfo *info)
 {
 	int pos;
 	t_plst *cur;
@@ -42,9 +41,8 @@ void		get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info)
 	info->countb = count_nbr(lstb);
 	while (cur)
 	{
-		if (ft_abs(cur->data - nbr) == diff)
+		if (ft_abs((long)cur->data - (long)nbr) == diff)
 		{
-			// ft_printf("pos is---is %d\n", pos);
 			info->diff_nbr = cur->data;
 			info->diff_pos = pos;
 			break ;
@@ -54,32 +52,6 @@ void		get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info)
 	}
 }
 
-// static void	test_rotate(int nbr, t_pinfo *info, int count)
-// {
-// 	int tmp;
-// 	int tmp1;
-
-// 	tmp = 0;
-// 	tmp1 = 0;
-// 	// ft_printf("info->diff_pos is %d, info->countb / 2 is %d\n", info->diff_pos, info->countb / 2);
-// 	if (nbr > info->diff_nbr)
-// 		info->pos = info->diff_pos - 1;
-// 	else
-// 		info->pos = info->diff_pos;
-
-// 	if (info->pos <= info->countb / 2 && count <= info->counta / 2)
-// 		info->test_count = info->pos + count;
-// 	else if (info->pos > info->countb / 2 && count > info->counta / 2)
-// 	{
-// 		tmp = info->countb - info->pos;
-// 		tmp1 = info->counta - count;
-// 		info->test_count = tmp + tmp1;
-// 	}
-// 	else if (info->pos <= info->countb / 2 && count > info->counta / 2)
-// 		info->test_count = info->pos + info->counta - count;
-// 	else if (info->pos > info->countb / 2 && count <= info->counta / 2)
-// 		info->test_count = info->countb - info->pos + count;
-// }
 
 static void	test_rotate(int nbr, t_pinfo *info, int count)
 {
@@ -304,6 +276,8 @@ void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info)
 	while (count_nbr(*lst))
 	{
 		nbr = get_right_nbr(*lst, *lstb, info);
+
+		// ft_printf("the nbr is %d\n", nbr);
 		get_diff_location(nbr, get_location(nbr, *lstb), *lstb, info);
 		
 		do_rotate(nbr, info, lstb, lst);

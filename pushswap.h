@@ -48,7 +48,7 @@ typedef struct		s_pinfo
 }					t_pinfo;
 
 void				print_lst(t_plst *lst);
-void				get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info);
+void				get_diff_location(int nbr, long diff, t_plst *lstb, t_pinfo *info);
 int					get_location_helper(t_plst *lst, int tmp_sa);
 
 /*
@@ -63,7 +63,7 @@ void	do_sort_five(t_pinfo *info, t_plst **lst, t_plst **lstb);
 */
 void	make_smallest_move_to_b(t_plst **lst, t_plst **lstb, t_pinfo *info);
 int		get_right_nbr(t_plst *lst, t_plst *lstb, t_pinfo *info);
-void		get_diff_location(int nbr, int diff, t_plst *lstb, t_pinfo *info);
+void		get_diff_location(int nbr, long diff, t_plst *lstb, t_pinfo *info);
 int		get_location(int nbr, t_plst *lstb);
 void	do_rotate_a(t_pinfo *info, t_plst **lst);
 

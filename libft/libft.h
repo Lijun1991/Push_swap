@@ -6,7 +6,7 @@
 /*   By: lwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/11 17:34:36 by lwang             #+#    #+#             */
-/*   Updated: 2017/04/05 21:07:31 by lwang            ###   ########.fr       */
+/*   Updated: 2017/05/26 22:17:24 by lwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int					skip_space(char const *str);
 
 int					pputchar(char c, int fd);
 int					pputstr(char const *s, int fd);
-int					ft_abs(int n);
+long				ft_abs(long n);
 long long			ft_ato_longlong(char *str);
 
 /*

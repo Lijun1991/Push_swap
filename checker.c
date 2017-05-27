@@ -44,6 +44,7 @@ int			main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
+	ft_memset(&info, 0, sizeof(t_pinfo));
 	lst = NULL;
 	lstb = NULL;
 	if (parse_arg(argc, argv, &lst, &info))
