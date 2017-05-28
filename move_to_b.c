@@ -14,23 +14,26 @@
 
 static void	test_rotate(int nbr, t_pinfo *info, int count)
 {
-	int	tmp1;
-	int	tmp2;
+	int tmp;
+	int tmp1;
+	int tmp2;
 
-	tmp1 = 0;
 	tmp2 = 0;
 	if (nbr > info->diff_nbr)
 		info->pos = info->diff_pos - 1;
 	else
 		info->pos = info->diff_pos;
 	if (info->pos <= info->countb / 2 && count <= info->counta / 2)
-		info->test_count = info->pos + count - \
-	info->pos > count ? count : info->pos;
+	{
+		tmp = info->pos > count ? count : info->pos;
+		info->test_count = info->pos + count - tmp;
+	}
 	else if (info->pos > info->countb / 2 && count > info->counta / 2)
 	{
+		tmp = info->countb - info->pos;
 		tmp1 = info->counta - count;
 		tmp2 = tmp1 > tmp2 ? tmp2 : tmp1;
-		info->test_count = info->countb - info->pos + tmp1 - tmp2;
+		info->test_count = tmp + tmp1 - tmp2;
 	}
 	else if (info->pos <= info->countb / 2 && count > info->counta / 2)
 		info->test_count = info->pos + info->counta - count;
@@ -38,12 +41,14 @@ static void	test_rotate(int nbr, t_pinfo *info, int count)
 		info->test_count = info->countb - info->pos + count;
 }
 
-static void	get_right_step(t_plst *lst, t_plst *lstb, t_pinfo *info, int *step)
+static int	get_right_step(t_plst *lst, t_plst *lstb, t_pinfo *info)
 {
 	t_plst	*cur;
 	int		count;
+	int		step;
 
 	count = 0;
+	step = 2147483647;
 	cur = lst;
 	while (cur)
 	{
@@ -51,22 +56,22 @@ static void	get_right_step(t_plst *lst, t_plst *lstb, t_pinfo *info, int *step)
 		info->counta = count_nbr(lst);
 		info->countb = count_nbr(lstb);
 		test_rotate(cur->data, info, count);
-		(*step) = (*step) > info->test_count ? info->test_count : (*step);
+		step = step > info->test_count ? info->test_count : step;
 		count++;
 		cur = cur->next;
 	}
+	return (step);
 }
 
 int			get_right_nbr(t_plst *lst, t_plst *lstb, t_pinfo *info)
 {
 	int		count;
-	int		step;
 	t_plst	*cur1;
+	int		step;
 
-	step = 2147483647;
 	count = 0;
 	cur1 = lst;
-	get_right_step(lst, lstb, info, &step);
+	step = get_right_step(lst, lstb, info);
 	info->test_count = 0;
 	while (cur1)
 	{

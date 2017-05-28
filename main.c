@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 	{
-		ft_fprintf(2, "Arg Error\n");
+		ft_fprintf(2, "Error\n");
 		return (1);
 	}
 	lst = NULL;
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	ft_memset(&info, 0, sizeof(t_pinfo));
 	if (parse_arg(argc, argv, &lst, &info))
 	{
-		ft_fprintf(2, "Arg Error\n");
+		ft_fprintf(2, "Error\n");
 		return (1);
 	}
 	print_bonus_o(&info, lst, lstb);

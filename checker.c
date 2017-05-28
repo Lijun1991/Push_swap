@@ -19,6 +19,7 @@ static int	checker_moves(char *line, t_plst **lst, t_plst **lstb)
 		deep_free(*lst);
 		deep_free(*lstb);
 		free(line);
+		line = NULL;
 		get_next_line(-42, NULL);
 		ft_fprintf(2, "Error\n");
 		return (1);
@@ -26,11 +27,10 @@ static int	checker_moves(char *line, t_plst **lst, t_plst **lstb)
 	return (0);
 }
 
-static void	free_everything(t_plst *lst, t_plst *lstb, char *line)
+static void	free_everything(t_plst *lst, t_plst *lstb)
 {
 	deep_free(lst);
 	deep_free(lstb);
-	free(line);
 }
 
 int			main(int argc, char **argv)
@@ -46,7 +46,7 @@ int			main(int argc, char **argv)
 	lst = NULL;
 	lstb = NULL;
 	if (parse_arg(argc, argv, &lst, &info))
-		return (ft_fprintf(2, "Arg Error\n") ? 1 : 0);
+		return (ft_fprintf(2, "Error\n"));
 	while (get_next_line(0, &line))
 	{
 		if (checker_moves(line, &lst, &lstb))
@@ -57,5 +57,5 @@ int			main(int argc, char **argv)
 		ft_printf(ft_strchr(info.flag, 'c') ? RED"KO\n"CLN : "KO\n");
 	else
 		ft_printf(ft_strchr(info.flag, 'c') ? GREE"OK\n"CLN : "OK\n");
-	free_everything(lst, lstb, line);
+	free_everything(lst, lstb);
 }
