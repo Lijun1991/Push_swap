@@ -12,7 +12,7 @@
 
 #include "pushswap.h"
 
-int		get_location_helper(t_plst *lst, int tmp_sa)
+int			get_location_helper(t_plst *lst, int tmp_sa)
 {
 	t_plst	*cur;
 	int		count;
@@ -32,62 +32,12 @@ int		get_location_helper(t_plst *lst, int tmp_sa)
 	return (count);
 }
 
-static int	find_second_small(t_plst *lst, int sa, t_pinfo *info)
-{
-	t_plst	*cur;
-	int		tmp;
-
-	tmp = lst->data;
-	if (lst)
-	{
-		cur = lst;
-		while (lst)
-		{
-			if (lst->data < tmp && lst->data != sa)
-				tmp = lst->data;
-			lst = lst->next;
-		}
-		info->sa = tmp;
-		return (1);
-	}
-	return (0);
-}
-
-/*
-** check if the smallest number is in the middle of group a, we need to find
-** the second small nub to rotate and push before it, then swap b.
-*/
-
-int			check_at_middle(int count, t_plst *lst, t_pinfo *info)
-{
-	int		tmp;
-	double	nbr;
-	double	nbr1;
-
-	nbr = (info->counta + 1) / 2;
-	nbr1 = count + 1;
-	tmp = info->sa;
-	if (nbr1 == nbr)
-	{
-		if (find_second_small(lst, tmp, info))
-			count = get_location_helper(lst, info->sa);
-		info->at_middle = 1;
-		return (count);
-	}
-	return (count);
-}
-
-
 int			get_times(t_plst *lst, t_pinfo *info)
 {
 	int	count;
 
 	count = 0;
 	count = get_location_helper(lst, info->sa);
-	if (info->at_middle)
-		info->at_middle++;
-	if ((int)info->counta > 3)
-		count = check_at_middle(count, lst, info);
 	info->sa_loc = count;
 	if (count < (info->counta + 1) / 2)
 	{
@@ -95,4 +45,51 @@ int			get_times(t_plst *lst, t_pinfo *info)
 		return (count);
 	}
 	return (info->counta - count);
+}
+
+static void	sort_way1(t_plst **lst, t_pinfo *info)
+{
+	ft_printf("ra\n");
+	ft_printf("sa\n");
+	rotate(lst, 1);
+	swap_data(*lst);
+	info->steps = info->steps + 2;
+}
+
+static void	sort_way2(t_plst **lst, t_pinfo *info)
+{
+	ft_printf("sa\n");
+	ft_printf("ra\n");
+	swap_data(*lst);
+	rotate(lst, 1);
+	info->steps = info->steps + 2;
+}
+
+void		do_sort_three(t_plst **lst, t_pinfo *info)
+{
+	int	last_data;
+
+	last_data = get_last_data(*lst);
+	if ((*lst)->data > (*lst)->next->data && (*lst)->next->data > last_data)
+		sort_way1(lst, info);
+	if ((*lst)->data > last_data && last_data > (*lst)->next->data)
+	{
+		ft_printf("ra\n");
+		rotate(lst, 1);
+		info->steps = info->steps + 1;
+	}
+	if ((*lst)->next->data > (*lst)->data && (*lst)->data > last_data)
+	{
+		ft_printf("rra\n");
+		rotate(lst, 2);
+		info->steps = info->steps + 1;
+	}
+	if ((*lst)->next->data > last_data && last_data > (*lst)->data)
+		sort_way2(lst, info);
+	if (last_data > (*lst)->data && (*lst)->data > (*lst)->next->data)
+	{
+		ft_printf("sa\n");
+		swap_data(*lst);
+		info->steps = info->steps + 1;
+	}
 }

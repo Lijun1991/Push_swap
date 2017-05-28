@@ -31,32 +31,10 @@ int	main(int argc, char **argv)
 		ft_fprintf(2, "Arg Error\n");
 		return (1);
 	}
-
-	if (ft_strchr(info.flag, 'o'))
-	{
-		ft_printf(ft_strchr(info.flag, 'c') ? GREE"original stack: \n"CLN : "original stack: \n");
-		// ft_printf("original stack: \n");
-		ft_printf("\na is: \n");
-		print_lst(lst);
-		ft_printf("\nb is: \n");
-		print_lst(lstb);
-	}
-
+	print_bonus_o(&info, lst, lstb);
 	if (!(check_all_inorder(lst)))
 		do_sort(&lst, &lstb, &info);
-
-	if (ft_strchr(info.flag, 'n'))
-	{
-		ft_printf(ft_strchr(info.flag, 'c') ? GREE"\nthe end stack is: \n"CLN : "\nthe end stack is: \n");
-		// ft_printf("\nthe end stack is: \n");
-		ft_printf("\na is: \n");
-		print_lst(lst);
-		ft_printf("\nb is: \n");
-		print_lst(lstb);
-	}
-	
-	if (ft_strchr(info.flag, 's'))
-		ft_printf(ft_strchr(info.flag, 'c') ? GREE"total: %d\n"CLN : "total: %d\n", info.steps);
-		// ft_printf(GREE"total: %d\n"CLN, info.steps);
+	print_bonus_n(&info, lst, lstb);
+	print_bonus_s(&info);
 	deep_free(lst);
 }

@@ -73,3 +73,13 @@ void	deep_free(t_plst *lst)
 		lst = tmp;
 	}
 }
+
+void	reset_info(t_pinfo *info)
+{
+	info->f_pos = 0;
+	info->pos = 0;
+	info->f_rotate_a = 0;
+	info->rotate_a = 0;
+	info->sign_rr = 0;
+	info->sign_rrr = 0;
+}

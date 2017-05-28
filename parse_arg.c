@@ -12,7 +12,7 @@
 
 #include "pushswap.h"
 
-int		check_all_inorder(t_plst *lst)
+int				check_all_inorder(t_plst *lst)
 {
 	t_plst	*cur;
 	int		tmp;
@@ -37,18 +37,7 @@ int		check_all_inorder(t_plst *lst)
 	return (0);
 }
 
-int		get_len(char **av)
-{
-	int i;
-
-	i = 0;
-	while (av[i])
-		i++;
-	return (i);
-}
-
-
-int		check_flag(char *s, t_pinfo *info, int *j)
+static int		check_flag(char *s, t_pinfo *info, int *j)
 {
 	if (s[1] == 'v' && s[2] == '\0' && !ft_strchr(info->flag, 'v'))
 		info->flag[(*j)++] = 'v';
@@ -65,10 +54,10 @@ int		check_flag(char *s, t_pinfo *info, int *j)
 	return (0);
 }
 
-char	**get_flag(int argc, char **argv, t_pinfo *info)
+static char		**get_flag(int argc, char **argv, t_pinfo *info)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	j = 0;
@@ -79,7 +68,7 @@ char	**get_flag(int argc, char **argv, t_pinfo *info)
 			if (ft_isdigit(argv[i][1]))
 				break ;
 			if (check_flag(argv[i], info, &j))
-				break;
+				break ;
 		}
 		else
 			break ;
@@ -87,14 +76,10 @@ char	**get_flag(int argc, char **argv, t_pinfo *info)
 	}
 	while (i-- > 1)
 		argv++;
-	// ft_printf("flag is %s\n", info->flag);
-	// ft_printf("real argv start at is %s\n", argv[i]);
 	return (argv);
 }
 
-
-
-int		parse_arg(int argc, char **argv, t_plst **lst, t_pinfo *info)
+int				parse_arg(int argc, char **argv, t_plst **lst, t_pinfo *info)
 {
 	int		len;
 	char	**av;
@@ -105,7 +90,6 @@ int		parse_arg(int argc, char **argv, t_plst **lst, t_pinfo *info)
 		return (1);
 	while (av[len])
 		len++;
-
 	while (len - 1)
 	{
 		intert_lst_front(lst, new_lst(av[len - 1]));
