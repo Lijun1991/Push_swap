@@ -90,6 +90,8 @@ int				parse_arg(int argc, char **argv, t_plst **lst, t_pinfo *info)
 		return (1);
 	while (av[len])
 		len++;
+	if (len == 1)
+		return (1);
 	while (len - 1)
 	{
 		intert_lst_front(lst, new_lst(av[len - 1]));
